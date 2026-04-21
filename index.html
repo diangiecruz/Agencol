@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expediente 1 — AGENCOL</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1C3557;
+  --navy-mid: #2A4A72;
+  --teal: #0B7A5F;
+  --teal-light: #E8F5F1;
+  --gold: #B8860B;
+  --gold-bg: #FBF5E6;
+  --gold-border: #E8C97A;
+  --red: #C0392B;
+  --red-bg: #FEF2F2;
+  --amber: #D97706;
+  --amber-bg: #FFFBEB;
+  --text: #1a1a1a;
+  --muted: #6B7280;
+  --border: #E2E0D8;
+  --bg: #F7F6F2;
+  --white: #FFFFFF;
+  --iana-purple: #5B21B6;
+  --iana-bg: #F5F3FF;
+  --iana-border: #DDD6FE;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.page { max-width: 720px; margin: 0 auto; padding: 0 16px 80px; }
+
+/* ── CLASIFICACIÓN ── */
+.clasificacion {
+  background: var(--navy);
+  color: white;
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0 -16px 0;
+}
+
+/* ── COVER ── */
+.cover {
+  background: var(--navy);
+  padding: 36px 28px 32px;
+  margin: 0 -16px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  border: 40px solid rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -20px;
+  width: 160px; height: 160px;
+  border: 30px solid rgba(255,255,255,0.03);
+  border-radius: 50%;
+}
+.cover-tag {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.cover-title {
+  font-family: 'Lora', serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+.cover-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+.cover-meta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.cover-chip {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.75);
+  font-weight: 500;
+}
+
+/* ── SECCIONES GENERALES ── */
+.section { margin-bottom: 32px; }
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── CONTEXTO AGENCOL ── */
+.contexto-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--navy);
+  border-radius: 0 10px 10px 0;
+  padding: 18px 20px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.75;
+}
+.contexto-card strong { color: var(--navy); font-weight: 600; }
+
+/* ── PERSONAJES ── */
+.personajes { display: flex; flex-direction: column; gap: 10px; }
+.personaje {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.p-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0; color: white;
+}
+.av1 { background: #1C3557; }
+.av2 { background: #0B7A5F; }
+.av3 { background: #7C3AED; }
+.av4 { background: #D97706; }
+.av5 { background: #C0392B; }
+.p-info {}
+.p-nombre { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 1px; }
+.p-cargo { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.p-nota { font-size: 12px; color: var(--text); line-height: 1.5; font-style: italic; }
+.p-rol-tag {
+  display: inline-block;
+  background: #F3F4F6;
+  border: 1px solid #E2E0D8;
+  border-radius: 20px;
+  padding: 1px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.2px;
+  margin-left: 5px;
+  vertical-align: middle;
+  font-style: normal;
+}
+
+/* ── BRÚJULA ── */
+.brujula {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.brujula-head {
+  background: #1C3557;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brujula-icono { font-size: 18px; }
+.brujula-titulo { font-family: 'Lora', serif; font-size: 15px; color: white; }
+.brujula-sub { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+.brujula-body { padding: 16px 20px; }
+.brujula-intro { font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 14px; }
+.brujula-intro strong { color: var(--navy); font-weight: 600; }
+.dominios { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.dominio {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 12px;
+  background: var(--bg);
+  border-radius: 8px;
+  border-left: 3px solid var(--border);
+}
+.dominio-code {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--navy);
+  min-width: 38px;
+  padding-top: 1px;
+  letter-spacing: 0.5px;
+}
+.dominio-pregunta { font-size: 12px; color: var(--text); line-height: 1.5; }
+.dominio-pregunta em { color: var(--muted); font-size: 11px; }
+.brujula-como {
+  background: var(--teal-light);
+  border: 1px solid rgba(11,122,95,0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #064E3B;
+  line-height: 1.6;
+}
+.brujula-como strong { font-weight: 600; }
+
+/* ── SEÑALES DE ALARMA ── */
+.alarma {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.alarma-head {
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.alarma-num {
+  width: 26px; height: 26px;
+  background: var(--red);
+  color: white;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+  flex-shrink: 0; margin-top: 1px;
+}
+.alarma-titulo {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  flex: 1;
+  line-height: 1.35;
+}
+.alarma-body { padding: 14px 18px; }
+.alarma-doc {
+  background: #F8F7F4;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.alarma-doc .doc-asunto {
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.alarma-narrativa {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.7;
+}
+.alarma-narrativa strong { font-weight: 600; }
+.alarma-dato {
+  display: inline-block;
+  background: var(--red-bg);
+  border: 1px solid #FECACA;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--red);
+  margin: 2px 3px;
+}
+
+/* ── MISIÓN ── */
+.mision-card {
+  background: var(--navy);
+  color: white;
+  border-radius: 10px;
+  padding: 22px 24px;
+}
+.mision-kicker {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.mision-titulo {
+  font-family: 'Lora', serif;
+  font-size: 18px;
+  color: white;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.mision-texto {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ── ACTIVIDADES ── */
+.actividad {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.act-head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #FAFAF8;
+}
+.act-num {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0; color: white;
+}
+.act1 .act-num { background: var(--navy); }
+.act2 .act-num { background: var(--teal); }
+.act3 .act-num { background: var(--iana-purple); }
+.act4 .act-num { background: var(--gold); }
+.act-head-info {}
+.act-titulo { font-size: 14px; font-weight: 600; color: var(--text); }
+.act-tiempo { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.act-body { padding: 18px 20px; }
+.act-intro {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 14px;
+  line-height: 1.65;
+  border-left: 3px solid var(--border);
+  padding-left: 12px;
+  font-style: italic;
+}
+.pregunta {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+}
+.pregunta::before {
+  content: '→ ';
+  color: var(--navy);
+  font-weight: 600;
+}
+.recuerden {
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #78350F;
+  line-height: 1.6;
+}
+.recuerden strong { font-weight: 600; color: var(--gold); }
+
+/* ── IANA ── */
+.iana-block {
+  background: var(--iana-bg);
+  border: 1px solid var(--iana-border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-top: 12px;
+}
+.iana-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.iana-avatar {
+  width: 30px; height: 30px;
+  background: var(--iana-purple);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  color: white; flex-shrink: 0;
+}
+.iana-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--iana-purple);
+  letter-spacing: 0.3px;
+}
+.iana-sub { font-size: 10px; color: #7C3AED; opacity: 0.7; }
+.iana-texto {
+  font-size: 13px;
+  color: #3B1F6E;
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+.iana-prompt {
+  background: white;
+  border: 1px solid var(--iana-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #4C1D95;
+  font-style: italic;
+  line-height: 1.6;
+  position: relative;
+}
+.iana-prompt::before {
+  content: '"';
+  font-size: 20px;
+  color: var(--iana-purple);
+  opacity: 0.4;
+  margin-right: 2px;
+  line-height: 0;
+  vertical-align: -4px;
+}
+.iana-nota {
+  font-size: 11px;
+  color: #6D28D9;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* ── COBIT REF ── */
+.cobit-ref {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 12px;
+}
+.cobit-head {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1D4ED8;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.cobit-texto {
+  font-size: 12px;
+  color: #1E40AF;
+  line-height: 1.6;
+}
+.cobit-texto a { color: #1D4ED8; font-weight: 600; }
+
+/* ── LIDERAZGO ── */
+.liderazgo-block {
+  background: var(--teal-light);
+  border: 1px solid rgba(11,122,95,0.2);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+.lid-kicker {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--teal);
+  margin-bottom: 8px;
+}
+.lid-titulo {
+  font-family: 'Lora', serif;
+  font-size: 15px;
+  color: #064E3B;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.lid-texto { font-size: 13px; color: #065F46; line-height: 1.7; }
+.lid-pregunta {
+  background: white;
+  border: 1px solid rgba(11,122,95,0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #064E3B;
+  margin-top: 10px;
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* ── FORMATO DE ENTREGA ── */
+.entrega-card {
+  background: var(--white);
+  border: 2px solid var(--navy);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.entrega-head {
+  background: var(--navy);
+  padding: 14px 20px;
+  color: white;
+}
+.entrega-kicker {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 4px;
+}
+.entrega-titulo { font-family: 'Lora', serif; font-size: 16px; color: white; }
+.entrega-body { padding: 18px 20px; }
+.entrega-nota {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.6;
+  font-style: italic;
+}
+.campo {
+  margin-bottom: 14px;
+}
+.campo-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.campo-lineas {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.campo-linea {
+  border-bottom: 1px solid var(--border);
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-height: 40px;
+}
+.campo-linea:last-child { border-bottom: none; }
+.campo-linea-num {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--border);
+  min-width: 16px;
+  padding-top: 1px;
+}
+.campo-linea-hint {
+  font-size: 11px;
+  color: #D1D5DB;
+  font-style: italic;
+}
+.entrega-instruccion {
+  background: var(--amber-bg);
+  border: 1px solid #FDE68A;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #78350F;
+  margin-top: 14px;
+  line-height: 1.6;
+}
+.entrega-instruccion strong { font-weight: 600; }
+
+/* ── CIERRE ── */
+.cierre {
+  text-align: center;
+  padding: 28px 20px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-top: 28px;
+}
+.cierre-titulo {
+  font-family: 'Lora', serif;
+  font-size: 20px;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.cierre-sub { font-size: 13px; color: var(--muted); }
+
+@media (max-width: 480px) {
+  .cover { padding: 28px 20px 24px; }
+  .cover-title { font-size: 22px; }
+  .act-body { padding: 14px 16px; }
+  .entrega-body { padding: 14px 16px; }
+}
+
+@media print {
+  body { background: white; }
+  .page { padding-bottom: 20px; }
+  .actividad, .alarma, .entrega-card { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="clasificacion">Taller de Gobierno de TI — Material para participantes</div>
+
+  <div class="cover">
+    <div class="cover-tag">Caso práctico integrador · Sesión 1</div>
+    <div class="cover-title">Expediente 1:<br>La alarma silenciosa</div>
+    <div class="cover-sub">AGENCOL — Agencia Colombiana de Gestión de Trámites y Servicios</div>
+    <div class="cover-meta">
+      <span class="cover-chip">Sesión 1 de 4</span>
+      <span class="cover-chip">Trabajo en grupo</span>
+      
+    </div>
+  </div>
+
+  <!-- AGENCOL -->
+  <div class="section">
+    <div class="section-label">La organización</div>
+    <div class="contexto-card">
+      <strong>AGENCOL</strong> es la Agencia Colombiana de Gestión de Trámites y Servicios. Atiende a más de dos millones de ciudadanos al año: procesa licencias, certificaciones, permisos y trámites de todo tipo. Tiene presencia en 12 ciudades, 1.400 funcionarios y un presupuesto de TI que ha crecido sostenidamente en los últimos tres años.<br><br>
+      En el papel, AGENCOL es una entidad moderna. Tiene sistemas digitales, invirtió en transformación digital y habla de innovación en sus informes de gestión. En la práctica, algo no está cuadrando — y la Directora General lo empieza a sentir.
+    </div>
+  </div>
+
+  <!-- PERSONAJES -->
+  <div class="section">
+    <div class="section-label">Las personas del caso</div>
+    <div class="personajes">
+      <div class="personaje">
+        <div class="p-avatar av1">MO</div>
+        <div class="p-info">
+          <div class="p-nombre">Mariana Ospina <span class="p-rol-tag">Directora General</span></div>
+          <div class="p-nota">"Yo aprobé las inversiones. Necesito poder defenderlas ante la junta — y hoy no sé si puedo."</div>
+        </div>
+      </div>
+      <div class="personaje">
+        <div class="p-avatar av2">RB</div>
+        <div class="p-info">
+          <div class="p-nombre">Ricardo Bermúdez <span class="p-rol-tag">Dir. Financiero</span></div>
+          <div class="p-nota">"Aprobé los presupuestos. Me pidieron un informe de retorno sobre la inversión en tecnología y no supe qué responder."</div>
+        </div>
+      </div>
+      <div class="personaje">
+        <div class="p-avatar av3">ST</div>
+        <div class="p-info">
+          <div class="p-nombre">Sandra Torres <span class="p-rol-tag">Dir. Operaciones</span></div>
+          <div class="p-nota">"Mi equipo usa los nuevos sistemas cuando toca. Pero en paralelo siguen con sus Excel y sus cuadernos. Algo les da desconfianza."</div>
+        </div>
+      </div>
+      <div class="personaje">
+        <div class="p-avatar av4">FG</div>
+        <div class="p-info">
+          <div class="p-nombre">Felipe Gutiérrez <span class="p-rol-tag">Dir. Tecnología</span></div>
+          <div class="p-nota">"Implementé todo lo que me pidieron, en los tiempos acordados. No entiendo por qué ahora parece que nada funcionó."</div>
+        </div>
+      </div>
+      <div class="personaje">
+        <div class="p-avatar av5">CR</div>
+        <div class="p-info">
+          <div class="p-nombre">Camila Reyes <span class="p-rol-tag">Asesora Jurídica</span></div>
+          <div class="p-nota">"Llegó una comunicación de la Superintendencia. Tenemos 30 días. Y cuando pregunté quién responde, nadie supo decirme."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÑALES DE ALARMA -->
+  <div class="section">
+    <div class="section-label">El expediente — lo que llegó esta semana</div>
+
+    <div class="alarma">
+      <div class="alarma-head">
+        <div class="alarma-num">1</div>
+        <div class="alarma-titulo">La carta de la Superintendencia</div>
+      </div>
+      <div class="alarma-body">
+        <div class="alarma-doc">
+          <div class="doc-asunto">Comunicado oficial — Ref. SGD-2024-0847</div>
+          Estimada Directora Ospina:<br><br>
+          En el marco del programa de supervisión de seguridad digital a entidades del sector público, esta Superintendencia solicita a AGENCOL acreditar el cumplimiento de los controles establecidos en la Circular 012 de 2023 sobre protección de datos personales y continuidad operacional de sistemas críticos.<br><br>
+          El plazo para remitir la documentación soporte es de <strong>treinta (30) días calendario</strong>.<br><br>
+          Superintendencia de Supervisión Digital
+        </div>
+        <div class="alarma-narrativa">
+          Cuando <strong>Camila Reyes</strong> <em>(Asesora Jurídica)</em> distribuyó la comunicación, hubo un momento incómodo en la reunión de dirección. Nadie sabía con certeza si AGENCOL cumple esos controles. Nadie sabía <em>quién</em> debería saber. <strong>Felipe</strong> <em>(Dir. Tecnología)</em> dijo que "técnicamente sí están implementados". <strong>Ricardo</strong> <em>(Dir. Financiero)</em> preguntó si había documentación. Silencio.
+          <br><br>
+          En 30 días alguien tiene que responder. Y ese alguien no está claro.
+        </div>
+      </div>
+    </div>
+
+    <div class="alarma">
+      <div class="alarma-head">
+        <div class="alarma-num">2</div>
+        <div class="alarma-titulo">El informe que nadie quería leer</div>
+      </div>
+      <div class="alarma-body">
+        <div class="alarma-narrativa">
+          <strong>Ricardo Bermúdez</strong> <em>(Dir. Financiero)</em> presentó la semana pasada un resumen de la inversión en tecnología de los últimos tres años. Los números son contundentes: <span class="alarma-dato">$2.340 millones de pesos</span> invertidos. Cinco sistemas nuevos. Dos integraciones. Una plataforma ciudadana.<br><br>
+          Cuando la junta preguntó "¿y qué cambió concretamente para el ciudadano?", <strong>Felipe</strong> <em>(Dir. Tecnología)</em> presentó <span class="alarma-dato">47 diapositivas</span> con métricas de disponibilidad del sistema, tiempos de respuesta del servidor y cobertura de actualizaciones.<br><br>
+          <strong>Mariana</strong> <em>(Directora General)</em> tuvo que intervenir: <em>"Felipe, ¿podemos decir cuánto tiempo tarda ahora un ciudadano en resolver su trámite comparado con hace tres años?"</em><br><br>
+          Felipe no tenía ese dato. Nadie lo tenía. La inversión existe. El impacto, nadie lo midió.
+        </div>
+      </div>
+    </div>
+
+    <div class="alarma">
+      <div class="alarma-head">
+        <div class="alarma-num">3</div>
+        <div class="alarma-titulo">Lo que encontró Sandra</div>
+      </div>
+      <div class="alarma-body">
+        <div class="alarma-narrativa">
+          <strong>Sandra Torres</strong> <em>(Dir. Operaciones)</em> encargó una revisión interna de cómo trabaja el equipo de operaciones. El resultado la sorprendió, aunque en el fondo no debería haberlo hecho:<br><br>
+          <span class="alarma-dato">68% del personal</span> mantiene registros paralelos en Excel, cuadernos físicos o grupos de WhatsApp, además del sistema oficial.<br><br>
+          La razón más frecuente que dieron: <em>"el sistema oficial a veces falla, y yo no puedo perder la información"</em>. Y también: <em>"lo uso para cumplir, pero para trabajar de verdad uso mis propios archivos"</em>.<br><br>
+          Los sistemas funcionan. Están activos, tienen usuarios registrados, generan reportes. Pero la organización real opera en paralelo, como si los sistemas no existieran del todo.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MISIÓN -->
+  <div class="section">
+    <div class="mision-card">
+      <div class="mision-kicker">Su rol en este caso</div>
+      <div class="mision-titulo">Ustedes son el Consejo de Gobierno Digital de AGENCOL</div>
+      <div class="mision-texto">
+        Mariana Ospina los convocó hace dos semanas. Tienen mandato de la Dirección General para hacer algo que nadie había hecho antes: mirar en conjunto cómo se están tomando las decisiones sobre tecnología en AGENCOL, qué está funcionando y qué no. Hoy es su primera reunión formal. En un mes, Mariana presenta ante la junta. Necesita que le digan qué está pasando realmente — y qué hacer.
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIVIDADES -->
+  <div class="section">
+    <div class="section-label">Su trabajo hoy</div>
+
+    <!-- BRÚJULA COBIT -->
+    <div class="brujula">
+      <div class="brujula-head">
+        <div>
+          <div class="brujula-titulo">🧭 La brújula del Consejo</div>
+          <div class="brujula-sub">Lo que necesitan saber de COBIT antes de empezar</div>
+        </div>
+      </div>
+      <div class="brujula-body">
+        <div class="brujula-intro">
+          <strong>COBIT</strong> es el marco que las organizaciones usan para asegurarse de que la tecnología trabaje para sus objetivos — no al revés. No es un manual técnico: es una guía para que la dirección tome mejores decisiones sobre tecnología. Organiza el gobierno de TI en <strong>5 dominios</strong>, cada uno con una pregunta estratégica que toda dirección debería poder responder.
+        </div>
+        <div class="dominios">
+          <div class="dominio">
+            <div class="dominio-code">EDM</div>
+            <div class="dominio-nombre">Evaluar, Dirigir y Monitorear<br><em>Evaluate, Direct &amp; Monitor</em></div>
+            <div class="dominio-pregunta">¿Quién dirige, evalúa y monitorea las decisiones tecnológicas?</div>
+          </div>
+          <div class="dominio">
+            <div class="dominio-code">APO</div>
+            <div class="dominio-nombre">Alinear, Planificar y Organizar<br><em>Align, Plan &amp; Organize</em></div>
+            <div class="dominio-pregunta">¿La tecnología está alineada con la estrategia y bien planeada?</div>
+          </div>
+          <div class="dominio">
+            <div class="dominio-code">BAI</div>
+            <div class="dominio-nombre">Construir, Adquirir e Implementar<br><em>Build, Acquire &amp; Implement</em></div>
+            <div class="dominio-pregunta">¿Cómo se construyen, adquieren e implementan las soluciones?</div>
+          </div>
+          <div class="dominio">
+            <div class="dominio-code">DSS</div>
+            <div class="dominio-nombre">Entregar, Dar Servicio y Soporte<br><em>Deliver, Service &amp; Support</em></div>
+            <div class="dominio-pregunta">¿Cómo se opera y protege lo que ya existe?</div>
+          </div>
+          <div class="dominio">
+            <div class="dominio-code">MEA</div>
+            <div class="dominio-nombre">Monitorear, Evaluar y Valorar<br><em>Monitor, Evaluate &amp; Assess</em></div>
+            <div class="dominio-pregunta">¿Estamos cumpliendo lo que prometimos y las normas que aplican?</div>
+          </div>
+        </div>
+        <div class="brujula-como">
+          <strong>¿Cómo usar el material de referencia?</strong> No lo lean completo — úsenlo como diccionario. Cuando una actividad los lleve a preguntar "¿quién debería hacer esto?", busquen el dominio correspondiente en el material HTML y lean ese objetivo específico. Está diseñado para consultarse, no para estudiarse.
+        </div>
+      </div>
+    </div>
+
+    <!-- ACT 1 -->
+    <div class="actividad act1">
+      <div class="act-head">
+        <div class="act-num">1</div>
+        <div class="act-head-info">
+          <div class="act-titulo">Diagnóstico: ¿qué está pasando realmente?</div>
+        </div>
+      </div>
+      <div class="act-body">
+        <div class="act-intro">
+          Antes de proponer soluciones, el Consejo necesita entender el problema de fondo. En una organización con buen gobierno de TI siempre hay claridad sobre quién aprueba, quién ejecuta y quién verifica que lo prometido se cumplió. Lean el expediente con esa pregunta activa: ¿eso está claro en AGENCOL?
+        </div>
+        <div class="pregunta">¿Cuál es el problema central de AGENCOL? No el síntoma más visible, sino la causa que está generando los tres al mismo tiempo.</div>
+        <div class="pregunta">¿Qué rol o instancia debería haber actuado en cada una de estas tres situaciones — y por qué no lo hizo?</div>
+        <div class="pregunta">Si AGENCOL tuviera un sistema de gobierno de TI bien establecido, ¿cuál de estas tres situaciones no habría ocurrido primero?</div>
+
+        <div class="recuerden">
+          <strong>Para tener en cuenta:</strong> La diferencia entre un problema técnico y un problema de gobierno no siempre es obvia. Un sistema que nadie usa no es un problema de TI — es un problema de adopción y de confianza. Una inversión sin evidencia de impacto no es un problema de finanzas — es un problema de definición de valor. Una carta regulatoria sin dueño no es un problema jurídico — es un problema de responsabilidades. ¿En cuál de esas categorías caen las tres alarmas de AGENCOL?
+        </div>
+
+        <div class="cobit-ref">
+          <div class="cobit-head">Referencia de apoyo — COBIT</div>
+          <div class="cobit-texto">
+            Si quieren profundizar en el concepto detrás de esta actividad, en el material de referencia busquen el dominio <strong>EDM</strong> — Evaluar, Dirigir y Monitorear. Es el dominio del gobierno: quién decide, quién responde y cómo se verifica que funcionó.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACT 2 -->
+    <div class="actividad act2">
+      <div class="act-head">
+        <div class="act-num">2</div>
+        <div class="act-head-info">
+          <div class="act-titulo">El mapa de decisiones</div>
+        </div>
+      </div>
+      <div class="act-body">
+        <div class="act-intro">
+          En AGENCOL se invirtieron $2.340 millones en tecnología. Hay decisiones de aprobación, de ejecución y de verificación de resultados. El Consejo debe mapear cómo deberían estar distribuidas esas responsabilidades — y cómo están distribuidas hoy.
+        </div>
+        <div class="pregunta">¿Quién debería definir qué tecnología necesita AGENCOL y para qué? ¿Quién lo está haciendo hoy, según lo que leen en el expediente?</div>
+        <div class="pregunta">¿Quién debería verificar que una inversión tecnológica generó el valor esperado? ¿Hay alguien en AGENCOL que esté haciendo eso?</div>
+        <div class="pregunta">¿Qué instancia debería haber identificado el problema de los procesos paralelos antes de que Sandra lo descubriera en una revisión interna?</div>
+
+        <div class="recuerden">
+          <strong>Para tener en cuenta:</strong> En organizaciones con buen gobierno de TI, las decisiones sobre tecnología no las toma solo el área de tecnología — ni solo la dirección financiera. Las toman en conjunto, con criterios claros, roles definidos y evidencia. Cuando falta ese sistema, cada quien decide desde su trinchera y nadie tiene el panorama completo. ¿Eso describe a AGENCOL?
+        </div>
+
+        <div class="cobit-ref">
+          <div class="cobit-head">Referencia de apoyo — COBIT</div>
+          <div class="cobit-texto">
+            En el material de referencia, el dominio <strong>APO</strong> — Alinear, Planificar y Organizar — es el que responde cómo debería estar estructurada la toma de decisiones tecnológicas y la gestión de inversiones. Úsenlo para enriquecer su diagnóstico.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACT 3 — IAna -->
+    <div class="actividad act3">
+      <div class="act-head">
+        <div class="act-num">3</div>
+        <div class="act-head-info">
+          <div class="act-titulo">Consulten a IAna</div>
+        </div>
+      </div>
+      <div class="act-body">
+        <div class="act-intro">
+          IAna es la asistente de IA de este Consejo. Está entrenada en gobierno de TI, COBIT y liderazgo digital, y conoce el caso de AGENCOL. Pueden consultarla durante todo el taller — para analizar, para pensar en voz alta, para explorar alternativas. Pero recuerden: IAna apoya el pensamiento, no lo reemplaza.
+        </div>
+
+        <div class="iana-block">
+          <div class="iana-head">
+            <div class="iana-avatar">IA</div>
+            <div>
+              <div class="iana-label">IAna — Asistente de Gobierno Digital</div>
+              <div class="iana-sub">Consejo de Gobierno Digital · AGENCOL</div>
+            </div>
+          </div>
+          <div class="iana-texto">
+            En esta actividad usen a IAna para hacer algo que es muy útil en análisis de gobernanza: pedirle que les <em>complique</em> el diagnóstico. Es fácil llegar a una conclusión rápida. Es más valioso encontrar los ángulos que no habían visto. Prueben con este tipo de prompts:
+          </div>
+          <div class="iana-prompt">
+            Soy parte del Consejo de Gobierno Digital de AGENCOL. Tenemos tres problemas identificados: una solicitud regulatoria sin dueño claro, una inversión de $2.340 millones sin evidencia de impacto, y un 68% del personal con procesos paralelos a los sistemas oficiales. ¿Qué causa raíz de gobierno de TI conecta los tres? ¿Qué estamos pasando por alto?
+          </div>
+          <div class="iana-prompt" style="margin-top:8px">
+            ¿Qué preguntas debería hacerse una junta directiva antes de aprobar una inversión tecnológica importante? Dame una lista con lenguaje de negocio, no de TI.
+          </div>
+          <div class="iana-nota">
+            Después de consultar a IAna: ¿qué respondió bien? ¿Qué no tuvo en cuenta del contexto real? ¿En qué cambió o enriqueció el diagnóstico del grupo?
+          </div>
+        </div>
+
+        <div class="recuerden">
+          <strong>Una reflexión importante:</strong> Usaron IA para analizar un caso de gobernanza. ¿Confiarían en esa respuesta para tomar una decisión real? ¿Qué validarían antes de actuar? Eso es exactamente lo que una organización debería preguntarse antes de usar IA en sus propios procesos.
+        </div>
+      </div>
+    </div>
+
+    <!-- ACT 4 -->
+    <div class="actividad act4">
+      <div class="act-head">
+        <div class="act-num">4</div>
+        <div class="act-head-info">
+          <div class="act-titulo">La primera decisión del Consejo</div>
+        </div>
+      </div>
+      <div class="act-body">
+        <div class="act-intro">
+          Mariana Ospina tiene 30 días para responder a la Superintendencia y está a un mes de presentar ante la junta. El Consejo necesita darle una recomendación concreta hoy — no un diagnóstico académico, sino una postura.
+        </div>
+        <div class="pregunta">¿Cuál es la acción más urgente que debe tomar AGENCOL en los próximos 15 días? ¿Por qué esa y no otra?</div>
+        <div class="pregunta">Si tuvieran que decirle a Mariana una sola cosa que está fallando en el gobierno de TI de AGENCOL, ¿cuál sería?</div>
+        <div class="pregunta">¿Qué necesitaría cambiar estructuralmente para que dentro de un año estos tres problemas no vuelvan a ocurrir?</div>
+
+        <div class="recuerden">
+          <strong>Para tener en cuenta:</strong> Una buena recomendación de gobierno no es técnica — es estratégica. No dice "hay que actualizar el sistema". Dice "hay que definir quién es responsable de verificar que las inversiones tecnológicas generen valor, con qué criterios y con qué periodicidad". La diferencia entre esas dos frases es la diferencia entre gestionar TI y gobernar TI.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMATO DE ENTREGA -->
+  <div class="section">
+    <div class="section-label">Formato de entrega — al cierre de la sesión</div>
+    <div class="entrega-card">
+      <div class="entrega-head">
+        <div class="entrega-kicker">Producto del Consejo · Expediente 1</div>
+        <div class="entrega-titulo">Registro de decisiones y postura del grupo</div>
+      </div>
+      <div class="entrega-body">
+        <div class="entrega-nota">
+          Sus respuestas serán la base del Expediente 2, que recibirán en la próxima sesión con las consecuencias de las decisiones que tomaron hoy.
+        </div>
+
+        <div class="campo">
+          <div class="campo-label">Participantes</div>
+          <div class="campo-lineas">
+            <div class="campo-linea"><span class="campo-linea-hint">Nombre · Cargo · Área — repitan por cada integrante</span></div>
+            <div class="campo-linea"></div>
+            <div class="campo-linea"></div>
+            <div class="campo-linea"></div>
+          </div>
+        </div>
+
+        <div class="campo">
+          <div class="campo-label">1. Diagnóstico del grupo: ¿cuál es el problema de fondo de AGENCOL?</div>
+          <div class="campo-lineas">
+            <div class="campo-linea"><span class="campo-linea-num">→</span><span class="campo-linea-hint">En una o dos oraciones: la causa raíz que identificaron (no los síntomas)</span></div>
+          </div>
+        </div>
+
+        <div class="campo">
+          <div class="campo-label">2. Vacío de gobierno más crítico identificado</div>
+          <div class="campo-lineas">
+            <div class="campo-linea"><span class="campo-linea-num">→</span><span class="campo-linea-hint">¿Qué rol, instancia o proceso falta o falla en AGENCOL?</span></div>
+          </div>
+        </div>
+
+        <div class="campo">
+          <div class="campo-label">3. Recomendación principal para Mariana (los próximos 30 días)</div>
+          <div class="campo-lineas">
+            <div class="campo-linea"><span class="campo-linea-num">→</span><span class="campo-linea-hint">Una acción concreta, con responsable claro y criterio de éxito</span></div>
+          </div>
+        </div>
+
+        <div class="campo">
+          <div class="campo-label">4. Supuestos del grupo</div>
+          <div class="campo-lineas">
+            <div class="campo-linea"><span class="campo-linea-num">→</span><span class="campo-linea-hint">Si sintieron que les faltaba información para decidir, documenten los supuestos que hicieron. Eso es parte del trabajo.</span></div>
+            <div class="campo-linea"></div>
+          </div>
+        </div>
+
+        <div class="campo">
+          <div class="campo-label">5. Aporte de IAna — ¿en qué enriqueció o cambió el diagnóstico?</div>
+          <div class="campo-lineas">
+            <div class="campo-linea"><span class="campo-linea-num">→</span><span class="campo-linea-hint">Una idea que IAna aportó y que el grupo no había visto. O lo contrario: algo que IAna pasó por alto.</span></div>
+          </div>
+        </div>
+
+        <div class="entrega-instruccion">
+          <strong>¿Cómo entregar?</strong> Envíen el formato completo o fotografías de sus notas a <strong>dianangelicacruz@outlook.es</strong>. Sus respuestas serán la base del Expediente 2, con las consecuencias de las decisiones que tomaron hoy.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <div class="cierre-titulo">¡A trabajar, Consejo!</div>
+    <div class="cierre-sub">AGENCOL los necesita. Y Mariana tiene 30 días.</div>
+  </div>
+
+</div>
+</body>
+</html>
