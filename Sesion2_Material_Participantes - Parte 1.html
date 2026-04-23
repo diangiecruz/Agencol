@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sesión 2 — IA Operativa: La IA que ya está en sus manos</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1C3557;
+  --navy-mid: #2A4A72;
+  --teal: #0B7A5F;
+  --teal-light: #E8F5F1;
+  --copilot: #0F6CBD;
+  --copilot-light: #EFF6FF;
+  --copilot-border: #BFDBFE;
+  --gold: #B8860B;
+  --gold-bg: #FBF5E6;
+  --gold-border: #E8C97A;
+  --red: #C0392B;
+  --red-bg: #FEF2F2;
+  --amber: #D97706;
+  --amber-bg: #FFFBEB;
+  --text: #1a1a1a;
+  --muted: #6B7280;
+  --border: #E2E0D8;
+  --bg: #F7F6F2;
+  --white: #FFFFFF;
+  --iana-purple: #5B21B6;
+  --iana-bg: #F5F3FF;
+  --iana-border: #DDD6FE;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.page { max-width: 720px; margin: 0 auto; padding: 0 16px 80px; }
+
+/* CLASIFICACIÓN */
+.clasificacion {
+  background: var(--copilot);
+  color: white;
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0 -16px 0;
+}
+
+/* COVER */
+.cover {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--copilot) 100%);
+  padding: 36px 28px 32px;
+  margin: 0 -16px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  border: 40px solid rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -20px;
+  width: 160px; height: 160px;
+  border: 30px solid rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.cover-tag {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.cover-title {
+  font-family: 'Lora', serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+.cover-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+.cover-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.cover-chip {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+}
+
+/* SECCIÓN */
+.section { margin-bottom: 32px; }
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* CARD INTRO */
+.intro-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--copilot);
+  border-radius: 0 10px 10px 0;
+  padding: 18px 20px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.75;
+}
+.intro-card strong { color: var(--copilot); font-weight: 600; }
+
+/* DISTINCIÓN */
+.distincion {
+  background: var(--navy);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+.distincion-kicker {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.distincion-titulo {
+  font-family: 'Lora', serif;
+  font-size: 17px;
+  color: white;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.distincion-texto {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.distincion-pregunta {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  margin-top: 12px;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* TIPOS IA */
+.tipos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+@media (max-width: 560px) { .tipos-grid { grid-template-columns: 1fr; } }
+.tipo-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  text-align: center;
+}
+.tipo-card.activo {
+  border-color: var(--copilot);
+  border-width: 2px;
+  background: var(--copilot-light);
+}
+.tipo-emoji { font-size: 24px; margin-bottom: 6px; }
+.tipo-nombre {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.tipo-card.activo .tipo-nombre { color: var(--copilot); }
+.tipo-desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.tipo-badge {
+  display: inline-block;
+  background: var(--copilot);
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-top: 6px;
+}
+
+/* RETOS */
+.reto {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.reto-head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.reto-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.r1 .reto-icon { background: #2B579A; }
+.r2 .reto-icon { background: #0F6CBD; }
+.r3 .reto-icon { background: #217346; }
+.r4 .reto-icon { background: #B7472A; }
+.r5 .reto-icon { background: #6264A7; }
+.reto-head-info { flex: 1; }
+.reto-app {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+.reto-titulo {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+.reto-tiempo {
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--bg);
+  border-radius: 20px;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.reto-body { padding: 18px 20px; }
+
+/* SITUACIÓN */
+.situacion {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.7;
+}
+.situacion-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+/* PROMPT COPILOT */
+.prompt-copilot {
+  background: #F0F7FF;
+  border: 1px solid var(--copilot-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.prompt-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--copilot);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.prompt-text {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #1E3A5F;
+  line-height: 1.7;
+  background: white;
+  border: 1px solid var(--copilot-border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+.prompt-alt {
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 6px;
+}
+
+/* PASOS */
+.pasos { margin-bottom: 14px; }
+.paso {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #F3F4F6;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+  align-items: flex-start;
+}
+.paso:last-child { border-bottom: none; }
+.paso-num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--copilot);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.r3 .paso-num { background: #217346; }
+.r4 .paso-num { background: #B7472A; }
+.r5 .paso-num { background: #6264A7; }
+
+/* REFLEXIÓN */
+.reflexion {
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #78350F;
+  line-height: 1.6;
+}
+.reflexion strong { font-weight: 600; color: var(--gold); }
+
+/* PERSONALIZA */
+.personaliza {
+  background: var(--teal-light);
+  border: 1px solid rgba(11,122,95,0.2);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #064E3B;
+  line-height: 1.6;
+}
+.personaliza strong { font-weight: 600; color: var(--teal); }
+
+/* GOBIERNO */
+.gobierno-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.gobierno-head {
+  background: var(--navy);
+  padding: 16px 20px;
+}
+.gobierno-head-titulo {
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  color: white;
+  margin-bottom: 4px;
+}
+.gobierno-head-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+}
+.gobierno-body {
+  padding: 18px 20px;
+}
+.gobierno-intro {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 14px;
+  border-left: 3px solid var(--border);
+  padding-left: 12px;
+  font-style: italic;
+}
+.pregunta-gob {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+}
+.pregunta-gob::before {
+  content: '→ ';
+  color: var(--navy);
+  font-weight: 600;
+}
+
+/* COBIT */
+.cobit-ref {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 12px;
+}
+.cobit-head {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1D4ED8;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.cobit-texto {
+  font-size: 12px;
+  color: #1E40AF;
+  line-height: 1.6;
+}
+
+/* IANA */
+.iana-block {
+  background: var(--iana-bg);
+  border: 1px solid var(--iana-border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-top: 0;
+}
+.iana-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.iana-avatar {
+  width: 30px; height: 30px;
+  background: var(--iana-purple);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  color: white; flex-shrink: 0;
+}
+.iana-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--iana-purple);
+}
+.iana-sub { font-size: 10px; color: #7C3AED; opacity: 0.7; }
+.iana-texto {
+  font-size: 13px;
+  color: #3B1F6E;
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+.iana-prompt {
+  background: white;
+  border: 1px solid var(--iana-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #4C1D95;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  position: relative;
+}
+.iana-prompt::before {
+  content: '"';
+  font-size: 20px;
+  color: var(--iana-purple);
+  opacity: 0.4;
+  margin-right: 2px;
+  line-height: 0;
+  vertical-align: -4px;
+}
+.iana-nota {
+  font-size: 11px;
+  color: #6D28D9;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* LIDERAZGO */
+.liderazgo-block {
+  background: var(--teal-light);
+  border: 1px solid rgba(11,122,95,0.2);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+.lid-kicker {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--teal);
+  margin-bottom: 8px;
+}
+.lid-titulo {
+  font-family: 'Lora', serif;
+  font-size: 15px;
+  color: #064E3B;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.lid-texto { font-size: 13px; color: #065F46; line-height: 1.7; }
+.lid-pregunta {
+  background: white;
+  border: 1px solid rgba(11,122,95,0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #064E3B;
+  margin-top: 10px;
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* CIERRE */
+.cierre {
+  text-align: center;
+  padding: 28px 20px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-top: 28px;
+}
+.cierre-titulo {
+  font-family: 'Lora', serif;
+  font-size: 20px;
+  color: var(--copilot);
+  margin-bottom: 6px;
+}
+.cierre-sub { font-size: 13px; color: var(--muted); }
+
+@media (max-width: 480px) {
+  .cover { padding: 28px 18px 24px; }
+  .cover-title { font-size: 22px; }
+  .reto-body { padding: 14px 16px; }
+}
+@media print {
+  body { background: white; }
+  .reto, .gobierno-card { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="clasificacion">Taller de Gobierno de TI — Sesión 2 · Material para participantes</div>
+
+<div class="cover">
+  <div class="cover-tag">Sesión 2 de 4 · IA Operativa</div>
+  <div class="cover-title">La IA que ya está<br>en sus manos</div>
+  <div class="cover-sub">Copilot y herramientas de IA para el trabajo cotidiano — y las preguntas que un líder digital debe saber hacer</div>
+  <div class="cover-meta">
+    <span class="cover-chip">Trabajo en grupo</span>
+    <span class="cover-chip">1 computador por grupo</span>
+    <span class="cover-chip">Copilot + Microsoft 365</span>
+  </div>
+</div>
+
+<!-- TRES TIPOS DE IA -->
+<div class="section">
+  <div class="section-label">El mapa — dónde estamos hoy</div>
+
+  <div class="tipos-grid">
+    <div class="tipo-card activo">
+      <div class="tipo-emoji">⚙️</div>
+      <div class="tipo-nombre">IA Operativa</div>
+      <div class="tipo-desc">Automatiza tareas, redacta, resume, responde. Está en sus herramientas ahora mismo.</div>
+      <div class="tipo-badge">Sesión 2 — Hoy</div>
+    </div>
+    <div class="tipo-card">
+      <div class="tipo-emoji">🔍</div>
+      <div class="tipo-nombre">IA Analítica</div>
+      <div class="tipo-desc">Procesa información compleja para apoyar decisiones. Ve patrones que los humanos no ven.</div>
+    </div>
+    <div class="tipo-card">
+      <div class="tipo-emoji">🧭</div>
+      <div class="tipo-nombre">IA Estratégica</div>
+      <div class="tipo-desc">Apoya la dirección institucional. Evalúa escenarios, portafolios y riesgos de largo plazo.</div>
+    </div>
+  </div>
+
+  <div class="intro-card">
+    La <strong>IA operativa</strong> no es el futuro — es el presente. Está en el correo que reciben esta tarde, en las reuniones de Teams, en los documentos de Word. <strong>Copilot</strong> es la versión de Microsoft de esta IA: un asistente integrado en todas las herramientas que ya usan. Hoy van a trabajar con él.<br><br>
+    La pregunta de esta sesión no es si la IA es útil. La pregunta es: <strong>¿qué hace el líder digital cuando tiene esta herramienta disponible para toda su organización?</strong>
+  </div>
+</div>
+
+<!-- DISTINCIÓN CENTRAL -->
+<div class="section">
+  <div class="section-label">La distinción clave de hoy</div>
+  <div class="distincion">
+    <div class="distincion-kicker">Gobierno de TI · Distinción 1</div>
+    <div class="distincion-titulo">La IA no decide. Asiste. La responsabilidad sigue siendo del usuario.</div>
+    <div class="distincion-texto">
+      Cuando Copilot redacta un correo, genera un resumen de reunión o propone el texto de un informe, lo hace con base en patrones de datos — no con criterio institucional, no con conocimiento del contexto político, no con la sensibilidad que requiere la situación. Puede ser muy útil. Pero el usuario que firma ese correo, que presenta ese informe, que actúa sobre ese resumen, <em>sigue siendo el responsable</em>.<br><br>
+      Esa distinción — entre asistir y decidir — es la base de todo el gobierno de la inteligencia artificial. Y empieza aquí, con Copilot, con las herramientas que tienen hoy.
+    </div>
+    <div class="distincion-pregunta">¿Qué pasaría en su organización si alguien actúa sobre un resumen generado por IA sin verificarlo? ¿Quién respondería?</div>
+  </div>
+</div>
+
+<!-- RETOS -->
+<div class="section">
+  <div class="section-label">Los retos de hoy — un reto por grupo</div>
+
+  <!-- RETO 1 — WORD -->
+  <div class="reto r1">
+    <div class="reto-head">
+      <div class="reto-icon">📄</div>
+      <div class="reto-head-info">
+        <div class="reto-app">Grupo 1 · Microsoft Word</div>
+        <div class="reto-titulo">Redactar un informe ejecutivo con Copilot</div>
+      </div>
+      <div class="reto-tiempo">20 min</div>
+    </div>
+    <div class="reto-body">
+      <div class="situacion">
+        <div class="situacion-label">La situación</div>
+        La dirección necesita un informe de máximo 2 páginas sobre los avances de un proyecto estratégico de su área. Tienen los puntos clave pero no el tiempo para redactarlo con el nivel de formalidad que requiere. Copilot puede hacer el primer borrador.
+      </div>
+
+      <div class="prompt-copilot">
+        <div class="prompt-label">🤖 Prompt sugerido para Copilot en Word</div>
+        <div class="prompt-text">Redacta un informe ejecutivo de máximo dos páginas sobre los avances de [nombre del proyecto]. El proyecto busca [objetivo principal]. Los avances más importantes son: [punto 1], [punto 2], [punto 3]. Los principales retos pendientes son: [reto 1], [reto 2]. El tono debe ser formal e institucional. Incluye una sección de próximos pasos.</div>
+        <div class="prompt-alt">👉 Reemplaza los corchetes con información real de su área, si tienen más documentos o información adjuntela para ampliar el contexto. Si prefieren trabajar con un ejemplo ficticio, usen: "Proyecto de modernización del sistema de gestión documental".</div>
+      </div>
+
+      <div class="pasos">
+        <div class="paso"><span class="paso-num">1</span>Abran Word → Nuevo documento → Clic en el ícono de Copilot (esquina superior o panel lateral)</div>
+        <div class="paso"><span class="paso-num">2</span>Ingresen el prompt. Si Copilot no está disponible directamente en Word, úsenlo en copilot.microsoft.com</div>
+        <div class="paso"><span class="paso-num">3</span>Lean el resultado: ¿qué está bien? ¿qué cambiarían? ¿qué no puede saber Copilot de su contexto real?</div>
+        <div class="paso"><span class="paso-num">4</span>Hagan al menos una iteración: pídanle a Copilot que ajuste el tono, que agregue una sección o que sea más conciso</div>
+      </div>
+
+      <div class="reflexion">
+        <strong>Para discutir en el grupo:</strong> ¿Firmarían este informe tal como Copilot lo redactó? ¿Qué revisarían antes? ¿Qué parte de ese informe solo pueden escribir ustedes — y no Copilot?
+      </div>
+
+      <div class="personaliza">
+        <strong>Personalícenlo:</strong> El reto funciona con cualquier informe de su área. Usen un proyecto real si se sienten cómodos, o inventen uno que se parezca a lo que hacen. El ejercicio es el mismo.
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 2 — OUTLOOK -->
+  <div class="reto r2">
+    <div class="reto-head">
+      <div class="reto-icon">📧</div>
+      <div class="reto-head-info">
+        <div class="reto-app">Grupo 2 · Microsoft Outlook</div>
+        <div class="reto-titulo">Gestionar correos difíciles con Copilot</div>
+      </div>
+      <div class="reto-tiempo">20 min</div>
+    </div>
+    <div class="reto-body">
+      <div class="situacion">
+        <div class="situacion-label">La situación</div>
+        Llegaron tres correos que requieren respuesta cuidadosa: uno es un reclamo de una contraparte, otro es una solicitud de prórroga de un proveedor y el tercero es un correo de su jefe preguntando por el estado de un entregable que está retrasado. No tienen mucho tiempo y los tres requieren el tono correcto.
+      </div>
+
+      <div class="prompt-copilot">
+        <div class="prompt-label">🤖 Prompts sugeridos para Copilot en Outlook</div>
+        <div class="prompt-text">Redacta una respuesta profesional y cordial para este correo. El mensaje debe: reconocer la solicitud, explicar que estamos revisando la situación y comprometernos a dar respuesta en [X días]. Tono: formal pero empático. Máximo 5 líneas.</div>
+        <div class="prompt-text" style="margin-top:8px">Si tiente Copilot integrado en outlook, dale esta instrucción. Resume los correos de los últimos 3 días relacionados con [tema] y dime cuáles requieren respuesta urgente.</div>
+        <div class="prompt-alt">👉 Para el primer prompt: escriban el correo difícil que prefieran o denlo contexto a Copilot que les genere un ejemplo de ese tipo de correo y luego pidanle que les ayude a responderlo. Para el segundo: si tienen Copilot en Outlook activo, prueben la función de resumen de hilo.</div>
+      </div>
+
+      <div class="pasos">
+        <div class="paso"><span class="paso-num">1</span>Abran Outlook → seleccionen un correo real que requiera respuesta (o simulen uno escribiendo el escenario en Copilot chat)</div>
+        <div class="paso"><span class="paso-num">2</span>Usen el botón "Responder con Copilot" o abran Copilot y peguen el texto del correo con las instrucciones</div>
+        <div class="paso"><span class="paso-num">3</span>Comparen: ¿qué hizo bien Copilot? ¿Qué matices del contexto no pudo capturar?</div>
+        <div class="paso"><span class="paso-num">4</span>Prueben pedir una versión más directa y una versión más diplomática del mismo correo</div>
+      </div>
+
+      <div class="reflexion">
+        <strong>Para discutir en el grupo:</strong> ¿Hay correos que nunca delegarían a la IA — ni para hacer el borrador? ¿Por qué esos y no otros? ¿Qué criterio están usando para decidir?
+      </div>
+
+      <div class="personaliza">
+        <strong>Personalícenlo:</strong> Usen un correo real de su bandeja de entrada (de bajo riesgo) o inventen uno que refleje la complejidad comunicacional de su cargo. El ejercicio vale igual.
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 3 — EXCEL -->
+  <div class="reto r3">
+    <div class="reto-head">
+      <div class="reto-icon">📊</div>
+      <div class="reto-head-info">
+        <div class="reto-app">Grupo 3 · Microsoft Excel</div>
+        <div class="reto-titulo">Analizar datos y generar resumen ejecutivo</div>
+      </div>
+      <div class="reto-tiempo">20 min</div>
+    </div>
+    <div class="reto-body">
+      <div class="situacion">
+        <div class="situacion-label">La situación</div>
+        Tienen una tabla con datos de seguimiento de indicadores: ejecución presupuestal, cumplimiento de metas o estadísticas de su área. La dirección pide un análisis rápido para la próxima reunión. Copilot puede hacer el análisis y generar el resumen.
+      </div>
+
+      <div class="prompt-copilot">
+        <div class="prompt-label">🤖 Prompts sugeridos para Copilot en Excel</div>
+        <div class="prompt-text">Analiza estos datos y dime: ¿cuáles son los tres hallazgos más importantes? ¿Hay alguna tendencia preocupante? ¿Qué recomendarías revisar primero? Presenta el resumen en lenguaje ejecutivo, sin jerga técnica.</div>
+        <div class="prompt-text" style="margin-top:8px">Crea una tabla resumen con los datos más relevantes para una presentación a la dirección. Resalta en rojo los valores por debajo del umbral.</div>
+        <div class="prompt-alt">👉 Si no tienen datos reales, creen una tabla simple con 5-6 filas de indicadores ficticios (ej: nombre del indicador, meta, resultado, % cumplimiento). Eso es suficiente para el ejercicio.Recuerden que también pueden usar Claude si no tiene copilot conectado a excel, solo le entregan adjunto el excel y le piden que genere también un excel con los resultados</div>
+      </div>
+
+      <div class="pasos">
+        <div class="paso"><span class="paso-num">1</span>Abran Excel con una tabla de datos real o creen una tabla simple de ejemplo</div>
+        <div class="paso"><span class="paso-num">2</span>Activen Copilot desde el menú superior → panel derecho</div>
+        <div class="paso"><span class="paso-num">3</span>Ingresen el prompt de análisis y lean el resultado</div>
+        <div class="paso"><span class="paso-num">4</span>Pídanle que genere una gráfica o que resalte visualmente los datos críticos</div>
+      </div>
+
+      <div class="reflexion">
+        <strong>Para discutir en el grupo:</strong> ¿Qué tan confiable es el análisis de Copilot sobre sus propios datos? ¿Qué validarían antes de presentar ese análisis a la dirección? ¿Qué contexto del dato solo lo saben ustedes?
+      </div>
+
+      <div class="personaliza">
+        <strong>Personalícenlo:</strong> Cualquier tabla de seguimiento sirve — presupuesto, indicadores de gestión, resultados de actividades. Si no tienen nada a mano, inventen 6 indicadores de un área ficticia similar a la suya.
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 4 — POWERPOINT -->
+  <div class="reto r4">
+    <div class="reto-head">
+      <div class="reto-icon">🖼️</div>
+      <div class="reto-head-info">
+        <div class="reto-app">Grupo 4 · Microsoft PowerPoint</div>
+        <div class="reto-titulo">Construir una presentación desde ideas sueltas</div>
+      </div>
+      <div class="reto-tiempo">20 min</div>
+    </div>
+    <div class="reto-body">
+      <div class="situacion">
+        <div class="situacion-label">La situación</div>
+        Tienen que presentar una iniciativa o proyecto a la junta directiva en 10 minutos. Tienen las ideas pero no el tiempo para construir la presentación. Copilot puede armar el esqueleto completo — estructura, textos y diseño — a partir de sus puntos clave.
+      </div>
+
+      <div class="prompt-copilot">
+        <div class="prompt-label">🤖 Prompts sugeridos para Copilot en PowerPoint</div>
+        <div class="prompt-text">Crea una presentación de 6 diapositivas para presentar a la junta directiva la siguiente iniciativa: [nombre y objetivo]. La presentación debe incluir: contexto del problema, qué proponemos hacer, recursos necesarios, beneficios esperados, riesgos principales y próximos pasos. Tono formal e institucional.</div>
+        <div class="prompt-text" style="margin-top:8px">Mejora el texto de esta diapositiva. Hazlo más conciso, más orientado a decisiones y con lenguaje de negocio — no técnico.</div>
+        <div class="prompt-alt">👉 Para el primer prompt: usen una iniciativa real de su área o inventen una (ej: "Implementación de un sistema de gestión documental digital en el área de operaciones"). Recuerden que también pueden usar Claude</div>
+      </div>
+
+      <div class="pasos">
+        <div class="paso"><span class="paso-num">1</span>Abran PowerPoint → Nueva presentación → Clic en "Crear con Copilot" o activen Copilot desde el panel</div>
+        <div class="paso"><span class="paso-num">2</span>Ingresen el prompt con la información de su iniciativa</div>
+        <div class="paso"><span class="paso-num">3</span>Revisen el resultado: ¿la estructura tiene sentido? ¿qué agregarían o quitarían?</div>
+        <div class="paso"><span class="paso-num">4</span>Pídanle que ajuste una diapositiva específica: más visual, más concisa, o con un enfoque diferente</div>
+      </div>
+
+      <div class="reflexion">
+        <strong>Para discutir en el grupo:</strong> ¿La presentación que generó Copilot convencería a la junta? ¿Qué le falta que solo ustedes podrían agregar? ¿Cuánto tiempo ahorraron versus construirla desde cero?
+      </div>
+
+      <div class="personaliza">
+        <strong>Personalícenlo:</strong> Elijan cualquier iniciativa que estén trabajando ahora. Si prefieren algo neutro, usen: "Propuesta para implementar Copilot en el área administrativa de nuestra organización."
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 5 — TEAMS -->
+  <div class="reto r5">
+    <div class="reto-head">
+      <div class="reto-icon">💬</div>
+      <div class="reto-head-info">
+        <div class="reto-app">Grupo 5 · Microsoft Teams</div>
+        <div class="reto-titulo">Sacarle el jugo a una reunión con Copilot</div>
+      </div>
+      <div class="reto-tiempo">20 min</div>
+    </div>
+    <div class="reto-body">
+      <div class="situacion">
+        <div class="situacion-label">La situación</div>
+        Acaban de terminar una reunión de dos horas. Tienen que distribuir un resumen con las decisiones tomadas, los compromisos adquiridos y los próximos pasos. Copilot puede generar ese resumen en segundos si la reunión fue por Teams — o puede ayudarles a estructurarlo si le dan el contexto.
+      </div>
+
+      <div class="prompt-copilot">
+        <div class="prompt-label">🤖 Prompts sugeridos para Copilot en Teams o Copilot Chat</div>
+        <div class="prompt-text">Resume esta reunión en tres secciones: (1) Decisiones tomadas, (2) Compromisos adquiridos con nombre y fecha, (3) Próximos pasos. Usa viñetas cortas. No incluyas toda la conversación, solo lo relevante para seguimiento.</div>
+        <div class="prompt-text" style="margin-top:8px">Basándote en esta descripción de la reunión: [describan brevemente de qué trató], ayúdame a redactar el correo de seguimiento con las decisiones y compromisos. Los asistentes fueron: [lista]. El objetivo de la reunión era: [objetivo].</div>
+        <div class="prompt-alt">👉 Si Copilot en Teams no está disponible con transcripción, usen Copilot Chat y descríbanle una reunión reciente. El ejercicio de estructurar un resumen funciona igual.</div>
+      </div>
+
+      <div class="pasos">
+        <div class="paso"><span class="paso-num">1</span>Si tienen una reunión reciente en Teams con transcripción: ábrala y activen Copilot desde el resumen de la reunión</div>
+        <div class="paso"><span class="paso-num">2</span>Si no: abran Copilot Chat y describan una reunión real reciente (sin datos sensibles) con el segundo prompt</div>
+        <div class="paso"><span class="paso-num">3</span>Revisen el resumen: ¿captura lo más importante? ¿hay algo crítico que Copilot no entendió?</div>
+        <div class="paso"><span class="paso-num">4</span>Pídanle que genere el correo de seguimiento para enviar a los participantes</div>
+      </div>
+
+      <div class="reflexion">
+        <strong>Para discutir en el grupo:</strong> ¿Qué pasa con las decisiones que se toman "en los pasillos" y no quedan en la transcripción? ¿Cómo afecta eso la confiabilidad del resumen? ¿Cuándo es riesgoso depender de este resumen?
+      </div>
+
+      <div class="personaliza">
+        <strong>Personalícenlo:</strong> Describan una reunión típica de su área — de planificación, de seguimiento, de coordinación con externos. El tipo de reunión cambia el tipo de resumen que Copilot genera.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PLENARIA FINAL -->
+<div class="section">
+  <div class="section-label">Plenaria — 3 minutos por grupo</div>
+
+  <div class="cierre" style="text-align:left; padding: 0; overflow: hidden;">
+    <div style="padding: 28px 24px 10px;">
+      <div style="font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 10px;">
+        Cierre de la actividad
+      </div>
+      <div class="cierre-titulo" style="margin-bottom: 10px;">¿Qué encontraron?</div>
+      <div class="cierre-sub" style="text-align:left; line-height:1.7;">
+        Cada grupo debe presentar, con base en su experiencia durante el ejercicio, una respuesta breve a estas tres preguntas:
+      </div>
+    </div>
+
+    <div style="padding: 0 24px 28px;">
+      <div style="background: var(--white); border: 1px solid var(--border); border-left: 6px solid var(--teal); border-radius: 0 10px 10px 0; padding: 18px 20px; margin-bottom: 14px;">
+        <div style="font-family: 'Lora', serif; font-size: 28px; line-height: 1; color: var(--teal); margin-bottom: 8px;">01</div>
+        <div style="font-size: 15px; color: var(--text); line-height: 1.6;">
+          ¿Qué hizo Copilot sorprendentemente bien?
+        </div>
+      </div>
+
+      <div style="background: var(--white); border: 1px solid var(--border); border-left: 6px solid var(--gold); border-radius: 0 10px 10px 0; padding: 18px 20px; margin-bottom: 14px;">
+        <div style="font-family: 'Lora', serif; font-size: 28px; line-height: 1; color: var(--gold); margin-bottom: 8px;">02</div>
+        <div style="font-size: 15px; color: var(--text); line-height: 1.6;">
+          ¿Qué no pudo hacer — o hizo mal?
+        </div>
+      </div>
+
+      <div style="background: var(--white); border: 1px solid var(--border); border-left: 6px solid var(--copilot); border-radius: 0 10px 10px 0; padding: 18px 20px;">
+        <div style="font-family: 'Lora', serif; font-size: 28px; line-height: 1; color: var(--copilot); margin-bottom: 8px;">03</div>
+        <div style="font-size: 15px; color: var(--text); line-height: 1.6;">
+          ¿Qué parte del trabajo solo podían hacer ustedes?
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cierre">
+  <div class="cierre-titulo">La IA ya está en sus manos.</div>
+  <div class="cierre-sub">La pregunta ahora es qué hacen con ella — y cómo aseguran que su organización también la use bien.</div>
+</div>
+
+</div>
+</body>
+</html>
