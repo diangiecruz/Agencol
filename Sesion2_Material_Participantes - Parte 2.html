@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sesión 2 — IA Operativa: La IA que ya está en sus manos</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1C3557;
+  --navy-mid: #2A4A72;
+  --teal: #0B7A5F;
+  --teal-light: #E8F5F1;
+  --copilot: #0F6CBD;
+  --copilot-light: #EFF6FF;
+  --copilot-border: #BFDBFE;
+  --gold: #B8860B;
+  --gold-bg: #FBF5E6;
+  --gold-border: #E8C97A;
+  --red: #C0392B;
+  --red-bg: #FEF2F2;
+  --amber: #D97706;
+  --amber-bg: #FFFBEB;
+  --text: #1a1a1a;
+  --muted: #6B7280;
+  --border: #E2E0D8;
+  --bg: #F7F6F2;
+  --white: #FFFFFF;
+  --iana-purple: #5B21B6;
+  --iana-bg: #F5F3FF;
+  --iana-border: #DDD6FE;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.page { max-width: 720px; margin: 0 auto; padding: 0 16px 80px; }
+
+/* CLASIFICACIÓN */
+.clasificacion {
+  background: var(--copilot);
+  color: white;
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0 -16px 0;
+}
+
+/* COVER */
+.cover {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--copilot) 100%);
+  padding: 36px 28px 32px;
+  margin: 0 -16px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  border: 40px solid rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -20px;
+  width: 160px; height: 160px;
+  border: 30px solid rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.cover-tag {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.cover-title {
+  font-family: 'Lora', serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+.cover-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+.cover-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.cover-chip {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+}
+
+/* SECCIÓN */
+.section { margin-bottom: 32px; }
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* CARD INTRO */
+.intro-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--copilot);
+  border-radius: 0 10px 10px 0;
+  padding: 18px 20px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.75;
+}
+.intro-card strong { color: var(--copilot); font-weight: 600; }
+
+/* DISTINCIÓN */
+.distincion {
+  background: var(--navy);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+.distincion-kicker {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.distincion-titulo {
+  font-family: 'Lora', serif;
+  font-size: 17px;
+  color: white;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.distincion-texto {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.distincion-pregunta {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  margin-top: 12px;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* TIPOS IA */
+.tipos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+@media (max-width: 560px) { .tipos-grid { grid-template-columns: 1fr; } }
+.tipo-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  text-align: center;
+}
+.tipo-card.activo {
+  border-color: var(--copilot);
+  border-width: 2px;
+  background: var(--copilot-light);
+}
+.tipo-emoji { font-size: 24px; margin-bottom: 6px; }
+.tipo-nombre {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.tipo-card.activo .tipo-nombre { color: var(--copilot); }
+.tipo-desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.tipo-badge {
+  display: inline-block;
+  background: var(--copilot);
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-top: 6px;
+}
+
+/* RETOS */
+.reto {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.reto-head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.reto-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.r1 .reto-icon { background: #2B579A; }
+.r2 .reto-icon { background: #0F6CBD; }
+.r3 .reto-icon { background: #217346; }
+.r4 .reto-icon { background: #B7472A; }
+.r5 .reto-icon { background: #6264A7; }
+.reto-head-info { flex: 1; }
+.reto-app {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+.reto-titulo {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+.reto-tiempo {
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--bg);
+  border-radius: 20px;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.reto-body { padding: 18px 20px; }
+
+/* SITUACIÓN */
+.situacion {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.7;
+}
+.situacion-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+/* PROMPT COPILOT */
+.prompt-copilot {
+  background: #F0F7FF;
+  border: 1px solid var(--copilot-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.prompt-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--copilot);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.prompt-text {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #1E3A5F;
+  line-height: 1.7;
+  background: white;
+  border: 1px solid var(--copilot-border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+.prompt-alt {
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 6px;
+}
+
+/* PASOS */
+.pasos { margin-bottom: 14px; }
+.paso {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #F3F4F6;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+  align-items: flex-start;
+}
+.paso:last-child { border-bottom: none; }
+.paso-num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--copilot);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.r3 .paso-num { background: #217346; }
+.r4 .paso-num { background: #B7472A; }
+.r5 .paso-num { background: #6264A7; }
+
+/* REFLEXIÓN */
+.reflexion {
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #78350F;
+  line-height: 1.6;
+}
+.reflexion strong { font-weight: 600; color: var(--gold); }
+
+/* PERSONALIZA */
+.personaliza {
+  background: var(--teal-light);
+  border: 1px solid rgba(11,122,95,0.2);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #064E3B;
+  line-height: 1.6;
+}
+.personaliza strong { font-weight: 600; color: var(--teal); }
+
+/* GOBIERNO */
+.gobierno-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.gobierno-head {
+  background: var(--navy);
+  padding: 16px 20px;
+}
+.gobierno-head-titulo {
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  color: white;
+  margin-bottom: 4px;
+}
+.gobierno-head-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+}
+.gobierno-body {
+  padding: 18px 20px;
+}
+.gobierno-intro {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 14px;
+  border-left: 3px solid var(--border);
+  padding-left: 12px;
+  font-style: italic;
+}
+.pregunta-gob {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+}
+.pregunta-gob::before {
+  content: '→ ';
+  color: var(--navy);
+  font-weight: 600;
+}
+
+/* COBIT */
+.cobit-ref {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 12px;
+}
+.cobit-head {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1D4ED8;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.cobit-texto {
+  font-size: 12px;
+  color: #1E40AF;
+  line-height: 1.6;
+}
+
+/* IANA */
+.iana-block {
+  background: var(--iana-bg);
+  border: 1px solid var(--iana-border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-top: 0;
+}
+.iana-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.iana-avatar {
+  width: 30px; height: 30px;
+  background: var(--iana-purple);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  color: white; flex-shrink: 0;
+}
+.iana-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--iana-purple);
+}
+.iana-sub { font-size: 10px; color: #7C3AED; opacity: 0.7; }
+.iana-texto {
+  font-size: 13px;
+  color: #3B1F6E;
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+.iana-prompt {
+  background: white;
+  border: 1px solid var(--iana-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #4C1D95;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  position: relative;
+}
+.iana-prompt::before {
+  content: '"';
+  font-size: 20px;
+  color: var(--iana-purple);
+  opacity: 0.4;
+  margin-right: 2px;
+  line-height: 0;
+  vertical-align: -4px;
+}
+.iana-nota {
+  font-size: 11px;
+  color: #6D28D9;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* LIDERAZGO */
+.liderazgo-block {
+  background: var(--teal-light);
+  border: 1px solid rgba(11,122,95,0.2);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+.lid-kicker {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--teal);
+  margin-bottom: 8px;
+}
+.lid-titulo {
+  font-family: 'Lora', serif;
+  font-size: 15px;
+  color: #064E3B;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.lid-texto { font-size: 13px; color: #065F46; line-height: 1.7; }
+.lid-pregunta {
+  background: white;
+  border: 1px solid rgba(11,122,95,0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #064E3B;
+  margin-top: 10px;
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* CIERRE */
+.cierre {
+  text-align: center;
+  padding: 28px 20px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-top: 28px;
+}
+.cierre-titulo {
+  font-family: 'Lora', serif;
+  font-size: 20px;
+  color: var(--copilot);
+  margin-bottom: 6px;
+}
+.cierre-sub { font-size: 13px; color: var(--muted); }
+
+@media (max-width: 480px) {
+  .cover { padding: 28px 18px 24px; }
+  .cover-title { font-size: 22px; }
+  .reto-body { padding: 14px 16px; }
+}
+@media print {
+  body { background: white; }
+  .reto, .gobierno-card { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="clasificacion">Taller de Gobierno de TI — Sesión 2 · Material para participantes</div>
+
+<div class="cover">
+  <div class="cover-tag">Sesión 2 de 4 · IA Operativa</div>
+  <div class="cover-title">La IA que ya está<br>en sus manos</div>
+  <div class="cover-sub">Copilot y herramientas de IA para el trabajo cotidiano — y las preguntas que un líder digital debe saber hacer</div>
+  <div class="cover-meta">
+    <span class="cover-chip">Trabajo en grupo</span>
+    <span class="cover-chip">1 computador por grupo</span>
+    <span class="cover-chip">Copilot + Microsoft 365</span>
+  </div>
+</div>
+
+<!-- TRES TIPOS DE IA -->
+<div class="section">
+  <div class="section-label">El mapa — dónde estamos hoy</div>
+
+  <div class="tipos-grid">
+    <div class="tipo-card activo">
+      <div class="tipo-emoji">⚙️</div>
+      <div class="tipo-nombre">IA Operativa</div>
+      <div class="tipo-desc">Automatiza tareas, redacta, resume, responde. Está en sus herramientas ahora mismo.</div>
+      <div class="tipo-badge">Sesión 2 — Hoy</div>
+    </div>
+    <div class="tipo-card">
+      <div class="tipo-emoji">🔍</div>
+      <div class="tipo-nombre">IA Analítica</div>
+      <div class="tipo-desc">Procesa información compleja para apoyar decisiones. Ve patrones que los humanos no ven.</div>
+    </div>
+    <div class="tipo-card">
+      <div class="tipo-emoji">🧭</div>
+      <div class="tipo-nombre">IA Estratégica</div>
+      <div class="tipo-desc">Apoya la dirección institucional. Evalúa escenarios, portafolios y riesgos de largo plazo.</div>
+    </div>
+  </div>
+
+  <div class="intro-card">
+    La <strong>IA operativa</strong> no es el futuro — es el presente. Está en el correo que reciben esta tarde, en las reuniones de Teams, en los documentos de Word. <strong>Copilot</strong> es la versión de Microsoft de esta IA: un asistente integrado en todas las herramientas que ya usan. Hoy van a trabajar con él.<br><br>
+    La pregunta de esta sesión no es si la IA es útil. La pregunta es: <strong>¿qué hace el líder digital cuando tiene esta herramienta disponible para toda su organización?</strong>
+  </div>
+</div>
+
+<!-- DISTINCIÓN CENTRAL -->
+<div class="section">
+  <div class="section-label">La distinción clave de hoy</div>
+  <div class="distincion">
+    <div class="distincion-kicker">Gobierno de TI · Distinción 1</div>
+    <div class="distincion-titulo">La IA no decide. Asiste. La responsabilidad sigue siendo del usuario.</div>
+    <div class="distincion-texto">
+      Cuando Copilot redacta un correo, genera un resumen de reunión o propone el texto de un informe, lo hace con base en patrones de datos — no con criterio institucional, no con conocimiento del contexto político, no con la sensibilidad que requiere la situación. Puede ser muy útil. Pero el usuario que firma ese correo, que presenta ese informe, que actúa sobre ese resumen, <em>sigue siendo el responsable</em>.<br><br>
+      Esa distinción — entre asistir y decidir — es la base de todo el gobierno de la inteligencia artificial. Y empieza aquí, con Copilot, con las herramientas que tienen hoy.
+    </div>
+    <div class="distincion-pregunta">¿Qué pasaría en su organización si alguien actúa sobre un resumen generado por IA sin verificarlo? ¿Quién respondería?</div>
+  </div>
+</div>
+
+
+<!-- BLOQUE DE GOBIERNO -->
+<div class="section">
+  <div class="section-label">La pregunta que surge después de usar Copilot</div>
+
+  <div class="gobierno-card">
+    <div class="gobierno-head">
+      <div class="gobierno-head-titulo">¿Quién en su organización decide cómo se usa esto?</div>
+      <div class="gobierno-head-sub">De la herramienta al gobierno — lo que los líderes digitales deben resolver</div>
+    </div>
+    <div class="gobierno-body">
+      <div class="gobierno-intro">
+        Acabaron de usar Copilot. Vieron lo que puede hacer. Ahora viene la pregunta que no resuelve la tecnología: cuando una organización despliega esto para cientos de personas, alguien tiene que decidir cómo, hasta dónde y bajo qué condiciones.
+      </div>
+
+      <div class="pregunta-gob">¿Hay documentos o conversaciones de su organización que Copilot <em>no debería</em> procesar? ¿Quién define esa lista y cómo se comunica?</div>
+      <div class="pregunta-gob">Si un funcionario actúa sobre información incorrecta generada por Copilot y eso tiene consecuencias institucionales, ¿quién responde?</div>
+      <div class="pregunta-gob">¿Cómo saben si Copilot está siendo usado de la manera que la organización quiere — y no de otras maneras que podrían generar riesgos?</div>
+      <div class="pregunta-gob">¿Quién en su organización tiene hoy el mandato de responder estas preguntas? ¿Existe ese rol o esa instancia?</div>
+
+      <div class="cobit-ref">
+        <div class="cobit-head">Conexión con Gobierno de TI — COBIT</div>
+        <div class="cobit-texto">
+          Las preguntas de arriba no son preguntas técnicas — son preguntas de gobierno. En el lenguaje de COBIT, pertenecen al dominio <strong>EDM</strong> (Evaluar, Dirigir y Monitorear): ¿quién tiene la autoridad para decidir cómo se usa la tecnología y cómo se verifica que ese uso produce los resultados esperados — sin generar riesgos que la organización no quiere asumir?<br><br>
+          La diferencia entre <strong>gestión de TI</strong> (el equipo de tecnología que instala y mantiene Copilot) y <strong>gobierno de TI</strong> (los líderes digitales que definen cómo se usa, quién responde y qué se permite) es exactamente lo que estas preguntas revelan. El equipo de TI puede desplegar la herramienta. El gobierno decide si la organización está lista para usarla responsablemente.<br><br>
+          Para continuar la reflexión, pueden consultar esta dirección: <a href="https://diangiecruz.github.io/cobit/" target="_blank" rel="noopener" style="color:#1D4ED8; font-weight:600; text-decoration:none;">https://diangiecruz.github.io/cobit/</a>, donde encontrarán material didáctico sobre los dominios y prácticas de COBIT.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- IANA -->
+<div class="section">
+  <div class="section-label">Consulten a IAna</div>
+
+  <div class="iana-block">
+    <div class="iana-head">
+      <div class="iana-avatar">IA</div>
+      <div>
+        <div class="iana-label">IAna — Asistente de Gobierno Digital</div>
+        <div class="iana-sub">Taller de Gobierno de TI · Sesión 2</div>
+      </div>
+    </div>
+    <div class="iana-texto">
+      Ahora que trabajaron con Copilot, usen a IAna para dos cosas: <strong>obtener ideas concretas</strong> sobre cómo aplicar lo que acaban de hacer en su trabajo real, y <strong>poner a prueba sus propias conclusiones</strong>. No la usen solo para pedir respuestas: también pídanle que les haga preguntas que los obliguen a pensar más allá de lo evidente.<br><br>
+      Pueden consultarla aquí: <a href="https://chatgpt.com/g/g-69e6c0f95e18819193230efd77d60925-iana-asistente-de-gobierno-digital-agencol" target="_blank" rel="noopener" style="color:#6D28D9; font-weight:600; text-decoration:none;">IAna — Asistente de Gobierno Digital</a>.<br><br>
+      Prueben con estos prompts:
+    </div>
+    <div class="iana-prompt">
+      En nuestra organización vamos a implementar Copilot de Microsoft para todos los usuarios. ¿Qué decisiones de gobierno debería tomar la dirección antes de hacer ese despliegue? Dame una lista en lenguaje claro, no de TI.
+    </div>
+    <div class="iana-prompt">
+      Usamos Copilot para redactar un informe ejecutivo y el resultado fue [describan qué pasó]. ¿Qué deberíamos validar antes de presentarlo? ¿Qué riesgos institucionales puede tener usar IA para este tipo de documentos?
+    </div>
+    <div class="iana-prompt">
+      ¿Cuáles son los usos de Copilot donde la IA genera más valor para líderes digitales — y cuáles son los usos donde el riesgo de confiar en ella es mayor? Dame ejemplos concretos de cada tipo.
+    </div>
+    <div class="iana-nota">
+      Después de consultar a IAna: ¿qué idea concreta les dio que no habían considerado? ¿Qué pregunta les hizo que cambió cómo estaban pensando el problema?
+    </div>
+  </div>
+</div>
+
+<!-- LIDERAZGO -->
+<div class="section">
+  <div class="section-label">Distinción de liderazgo</div>
+
+  <div class="liderazgo-block">
+    <div class="lid-kicker">Liderazgo digital · Sesión 2</div>
+    <div class="lid-titulo">El líder digital no es el que más sabe de tecnología. Es el que hace las preguntas correctas antes de adoptarla.</div>
+    <div class="lid-texto">
+      Hoy usaron Copilot. Algunos encontraron que es sorprendentemente capaz. Otros encontraron que le falta contexto, que se equivoca en matices, que produce textos que suenan bien pero no reflejan la realidad institucional.<br><br>
+      Ninguna de esas dos reacciones — el entusiasmo ni el escepticismo — es la postura del liderazgo digital. La postura del liderazgo digital es la pregunta: <em>"¿Para qué sirve esto en mi contexto específico, quién responde cuando falla y cómo me aseguro de que su uso genera valor y no riesgo?"</em><br><br>
+      Esa pregunta no requiere saber de inteligencia artificial. Requiere saber gobernar.
+    </div>
+    <div class="lid-pregunta">En su área, ¿hay algún proceso donde Copilot podría ayudar hoy mismo? ¿Y hay algún proceso donde implementarlo sin las condiciones adecuadas podría generar un problema?</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Plenaria — 3 minutos por grupo</div>
+
+  <div class="cierre" style="text-align:left; padding:0; overflow:hidden; margin-top:0;">
+    <div style="padding: 28px 24px 10px;">
+      <div style="font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 10px;">
+        Cierre de la actividad
+      </div>
+      <div class="cierre-titulo" style="margin-bottom: 10px;">Reflexión desde Gobierno</div>
+      <div class="cierre-sub" style="text-align:left; line-height:1.7;">
+        Después de interactuar con IAna, cada grupo debe preparar una respuesta breve para compartir con el grupo:
+      </div>
+    </div>
+
+    <div style="padding: 0 24px 28px;">
+      <div style="background: var(--white); border: 1px solid var(--border); border-left: 6px solid var(--teal); border-radius: 0 10px 10px 0; padding: 18px 20px; margin-bottom: 14px;">
+        <div style="font-family: 'Lora', serif; font-size: 28px; line-height: 1; color: var(--teal); margin-bottom: 8px;">01</div>
+        <div style="font-size: 15px; color: var(--text); line-height: 1.6; margin-bottom: 10px;">
+          ¿Qué decisión debería tomar la alta dirección antes de desplegar Copilot en la organización?
+        </div>
+        <div style="font-size: 12px; color: var(--muted); line-height: 1.6;">
+          Relación COBIT: <strong>EDM01 — Marco de Gobierno</strong> (<em>Ensure Governance Framework Setting and Maintenance</em>)
+        </div>
+      </div>
+
+      <div style="background: var(--white); border: 1px solid var(--border); border-left: 6px solid var(--gold); border-radius: 0 10px 10px 0; padding: 18px 20px; margin-bottom: 14px;">
+        <div style="font-family: 'Lora', serif; font-size: 28px; line-height: 1; color: var(--gold); margin-bottom: 8px;">02</div>
+        <div style="font-size: 15px; color: var(--text); line-height: 1.6; margin-bottom: 10px;">
+          ¿Dónde identifican el mayor riesgo en el uso de Copilot dentro de su organización?
+        </div>
+        <div style="font-size: 12px; color: var(--muted); line-height: 1.6;">
+          Relación COBIT: <strong>EDM03 — Optimización del Riesgo</strong> (<em>Ensure Risk Optimization</em>)
+        </div>
+      </div>
+
+      <div style="background: var(--white); border: 1px solid var(--border); border-left: 6px solid var(--copilot); border-radius: 0 10px 10px 0; padding: 18px 20px;">
+        <div style="font-family: 'Lora', serif; font-size: 28px; line-height: 1; color: var(--copilot); margin-bottom: 8px;">03</div>
+        <div style="font-size: 15px; color: var(--text); line-height: 1.6; margin-bottom: 10px;">
+          ¿En qué proceso concreto implementarían Copilot y bajo qué condiciones de control?
+        </div>
+        <div style="font-size: 12px; color: var(--muted); line-height: 1.6;">
+          Relación COBIT: <strong>APO13 — Seguridad</strong> (<em>Manage Security</em>) y <strong>BAI03 — Soluciones</strong> (<em>Manage Solutions Identification and Build</em>)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cierre">
+  <div class="cierre-titulo">La IA ya está en sus manos.</div>
+  <div class="cierre-sub">La pregunta ahora es qué hacen con ella — y cómo aseguran que su organización también la use bien.</div>
+</div>
+
+</div>
+</body>
+</html>
