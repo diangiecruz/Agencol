@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sesión 3 — IA Analítica · Parte 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#1C3557;--teal:#0B7A5F;--teal-light:#E8F5F1;
+  --ana:#0E7490;--ana-light:#ECFEFF;--ana-border:#A5F3FC;
+  --gold:#B8860B;--gold-bg:#FBF5E6;--gold-border:#E8C97A;
+  --red:#C0392B;--red-bg:#FEF2F2;--amber:#D97706;--amber-bg:#FFFBEB;
+  --text:#1a1a1a;--muted:#6B7280;--border:#E2E0D8;--bg:#F7F6F2;--white:#FFFFFF;
+  --iana-purple:#5B21B6;--iana-bg:#F5F3FF;--iana-border:#DDD6FE;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.page{max-width:720px;margin:0 auto;padding:0 16px 80px}
+.clasificacion{background:linear-gradient(90deg,#0B7A5F,var(--ana));color:white;text-align:center;padding:8px 16px;font-size:10px;letter-spacing:3px;font-weight:600;text-transform:uppercase;margin:0 -16px 0}
+
+/* COVER PARTE 2 */
+.cover{background:linear-gradient(135deg,#064E3B 0%,var(--teal) 60%,var(--ana) 100%);padding:36px 28px 32px;margin:0 -16px 32px;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border:40px solid rgba(255,255,255,0.05);border-radius:50%}
+.cover::after{content:'';position:absolute;bottom:-60px;left:-20px;width:160px;height:160px;border:30px solid rgba(255,255,255,0.04);border-radius:50%}
+.cover-continuacion{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:3px 12px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.85);margin-bottom:12px}
+.cover-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.55);font-weight:600;margin-bottom:10px}
+.cover-title{font-family:'Lora',serif;font-size:26px;font-weight:600;color:white;line-height:1.25;margin-bottom:6px}
+.cover-sub{font-size:13px;color:rgba(255,255,255,0.65);font-weight:300;margin-bottom:20px}
+.cover-meta{display:flex;gap:12px;flex-wrap:wrap}
+.cover-chip{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,0.85);font-weight:500}
+.cover-aviso{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:10px 14px;margin-top:16px;font-size:12px;color:rgba(255,255,255,0.8);line-height:1.6}
+.cover-aviso strong{color:white;font-weight:600}
+
+.section{margin-bottom:32px}
+.section-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* BLOQUE DIVISOR */
+.bloque-divisor{border-radius:10px;padding:16px 20px;margin:0 -4px 24px;display:flex;align-items:center;gap:14px}
+.bloque-2{background:linear-gradient(135deg,#1C3557,#0B7A5F)}
+.bloque-num{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.3);color:white;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.bloque-titulo{font-family:'Lora',serif;font-size:16px;color:white;margin-bottom:2px}
+.bloque-desc{font-size:12px;color:rgba(255,255,255,0.6)}
+
+/* GOBIERNO */
+.gobierno-card{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.gobierno-head{background:var(--navy);padding:16px 20px}
+.gobierno-head-titulo{font-family:'Lora',serif;font-size:16px;color:white;margin-bottom:4px}
+.gobierno-head-sub{font-size:12px;color:rgba(255,255,255,0.6)}
+.gobierno-body{padding:18px 20px}
+.gobierno-intro{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;border-left:3px solid var(--border);padding-left:12px;font-style:italic}
+.pregunta-gob{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:13px;color:var(--text);line-height:1.6}
+.pregunta-gob::before{content:'→ ';color:var(--navy);font-weight:600}
+.cobit-ref{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:12px 14px;margin-top:12px}
+.cobit-head{font-size:11px;font-weight:600;color:#1D4ED8;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:6px}
+.cobit-texto{font-size:12px;color:#1E40AF;line-height:1.6}
+
+/* IANA */
+.iana-block{background:var(--iana-bg);border:1px solid var(--iana-border);border-radius:10px;overflow:hidden}
+.iana-header{background:linear-gradient(135deg,#4C1D95,var(--iana-purple));padding:14px 18px;display:flex;align-items:center;gap:12px}
+.iana-avatar{width:36px;height:36px;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;letter-spacing:-0.5px}
+.iana-header-info{flex:1}
+.iana-label{font-size:13px;font-weight:600;color:white}
+.iana-sub{font-size:10px;color:rgba(255,255,255,0.65);margin-top:1px}
+.iana-rasgos{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.iana-rasgo{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:2px 9px;font-size:9px;font-weight:600;color:rgba(255,255,255,0.85);letter-spacing:0.5px;text-transform:uppercase}
+.iana-body{padding:16px 18px}
+.iana-texto{font-size:13px;color:#3B1F6E;line-height:1.65;margin-bottom:12px}
+.iana-prompts-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--iana-purple);margin-bottom:8px}
+.iana-prompt{background:white;border:1px solid var(--iana-border);border-radius:8px;padding:10px 14px;font-size:12px;color:#4C1D95;font-style:italic;line-height:1.6;margin-bottom:8px;position:relative;padding-left:22px}
+.iana-prompt::before{content:'"';position:absolute;left:10px;top:8px;font-size:18px;color:var(--iana-purple);opacity:0.35;line-height:1}
+.iana-como-pregunta{background:#EDE9FE;border:1px solid #C4B5FD;border-radius:8px;padding:10px 14px;margin-top:10px;font-size:12px;color:#4C1D95;line-height:1.6}
+.iana-como-pregunta strong{font-weight:600;color:var(--iana-purple);display:block;margin-bottom:3px}
+.iana-nota{font-size:11px;color:#6D28D9;margin-top:10px;font-style:italic;line-height:1.5}
+
+/* LIDERAZGO */
+.liderazgo-block{background:var(--teal-light);border:1px solid rgba(11,122,95,0.2);border-radius:10px;padding:18px 20px}
+.lid-kicker{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--teal);margin-bottom:8px}
+.lid-titulo{font-family:'Lora',serif;font-size:15px;color:#064E3B;margin-bottom:8px;line-height:1.3}
+.lid-texto{font-size:13px;color:#065F46;line-height:1.7}
+.lid-pregunta{background:white;border:1px solid rgba(11,122,95,0.2);border-radius:8px;padding:10px 14px;font-size:13px;color:#064E3B;margin-top:10px;font-weight:500;font-style:italic}
+
+.cierre{text-align:center;padding:28px 20px;background:var(--white);border:1px solid var(--border);border-radius:10px;margin-top:28px}
+.cierre-titulo{font-family:'Lora',serif;font-size:20px;color:var(--ana);margin-bottom:6px}
+.cierre-sub{font-size:13px;color:var(--muted)}
+
+@media(max-width:480px){.cover{padding:28px 18px 24px}.cover-title{font-size:22px}}
+@media print{body{background:white}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="clasificacion">Taller de Gobierno de TI — Sesión 3 · Material para participantes · Parte 2</div>
+
+<div class="cover">
+  <div class="cover-continuacion">◀ Continuación · Parte 2 de 2</div>
+  <div class="cover-tag">Sesión 3 de 4 · IA Analítica</div>
+  <div class="cover-title">De analizar datos<br>a gobernarlos</div>
+  <div class="cover-sub">Las preguntas que los ejercicios de hoy dejaron abiertas — y lo que el gobierno de TI tiene que decir sobre ellas</div>
+  <div class="cover-meta">
+    <span class="cover-chip">Bloque 2 — Gobernar y reflexionar</span>
+    <span class="cover-chip">Reflexión + COBIT + Liderazgo</span>
+  </div>
+  <div class="cover-aviso">
+    <strong>Nota:</strong> Esta parte presupone que ya completaron los ejercicios del Bloque 1 y escucharon la introducción de la facilitadora. El contexto de lo que lean aquí es la experiencia que acaban de tener — no un capítulo nuevo.
+  </div>
+</div>
+
+<!-- BLOQUE 2 -->
+<div class="bloque-divisor bloque-2">
+  <div class="bloque-num">2</div>
+  <div>
+    <div class="bloque-titulo">Bloque 2 — Gobernar y reflexionar</div>
+    <div class="bloque-desc">De analizar datos a pensar quién los gobierna — y bajo qué condiciones.</div>
+  </div>
+</div>
+
+<!-- GOBIERNO -->
+<div class="section">
+  <div class="section-label">La pregunta de fondo — gobierno de los datos</div>
+
+  <div class="gobierno-card">
+    <div class="gobierno-head">
+      <div class="gobierno-head-titulo">¿Qué datos le damos a la IA — y quién decide eso?</div>
+      <div class="gobierno-head-sub">De la herramienta analítica al gobierno de la información</div>
+    </div>
+    <div class="gobierno-body">
+      <div class="gobierno-intro">
+        Hoy usaron la IA con datos reales o muy similares a los reales. Eso abre una pregunta que la sesión anterior no planteó con tanta fuerza: ¿qué información de la organización puede entrar a una herramienta de IA — y quién establece esas reglas?
+      </div>
+
+      <div class="pregunta-gob">Si alguien carga en la IA un informe con datos de personal, información contractual o indicadores estratégicos — ¿dónde quedan esos datos? ¿Quién lo sabe? ¿Quién lo controla?</div>
+      <div class="pregunta-gob">¿Existe hoy en su organización una clasificación de qué información puede usarse con herramientas externas de IA y cuál no? ¿Quién debería definirla?</div>
+      <div class="pregunta-gob">Si el análisis que la IA genera sobre los datos de su organización es incorrecto y alguien actúa basándose en él, ¿quién responde? ¿Cómo se detecta el error?</div>
+      <div class="pregunta-gob">¿Cuál es la diferencia entre un análisis que la IA hace bien y uno que solo parece bien hecho? ¿Cómo distinguen los dos en la práctica?</div>
+
+      <div class="cobit-ref">
+        <div class="cobit-head">Conexión con Gobierno de TI — COBIT</div>
+        <div class="cobit-texto">
+          Las preguntas de arriba tocan dos objetivos fundamentales de COBIT. <strong>APO14 — Gestión de Datos</strong>: los datos de la organización son un activo. Quienes lideran la organización deciden quién puede usarlos, para qué y bajo qué condiciones — incluyendo dárselos a una IA. <strong>APO12 — Gestión del Riesgo</strong>: ¿qué puede salir mal cuando la IA analiza datos organizacionales y cómo se mitiga ese riesgo antes de que ocurra?<br><br>
+          No es suficiente con saber usar la herramienta. También hay que gobernar los datos que se le dan — porque esos datos son activos de la organización y su protección es responsabilidad institucional, no solo técnica.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- IANA -->
+<div class="section">
+  <div class="section-label">Consulten a IAna</div>
+
+  <div class="iana-block">
+    <div class="iana-header">
+      <div class="iana-avatar">IA</div>
+      <div class="iana-header-info">
+        <div class="iana-label">IAna — Asistente de Gobierno Digital</div>
+        <div class="iana-sub">Taller de Gobierno de TI · Sesión 3</div>
+        <div class="iana-rasgos">
+          <span class="iana-rasgo">Cálida</span>
+          <span class="iana-rasgo">Curiosa</span>
+          <span class="iana-rasgo">Directa sobre sus límites</span>
+        </div>
+      </div>
+    </div>
+    <div class="iana-body">
+      <div class="iana-texto">
+        IAna no es un buscador — es una interlocutora. Se interesa genuinamente en lo que encontraron hoy y en el contexto específico de su organización. Antes de responder sobre decisiones institucionales, probablemente les preguntará algo para entender mejor su situación — no porque no sepa, sino porque la respuesta útil depende de ese contexto.<br><br>
+        Si siente que una pregunta requiere saber cosas que solo ustedes conocen de su organización, lo va a decir directamente: <em>"Eso depende de algo que solo tú sabes — lo que puedo darte es el marco para pensarlo."</em> Eso no es una falla — es exactamente lo que necesitan saber sobre los límites de la IA antes de confiarle una decisión.
+      </div>
+
+      <div class="iana-prompts-label">Prueben con estos prompts</div>
+
+      <div class="iana-prompt">Usamos la IA para analizar [tipo de datos] de nuestra organización y el resultado fue [describan lo que encontraron]. ¿Qué deberíamos validar antes de actuar sobre ese análisis? ¿Cuáles son los principales riesgos para una entidad pública?</div>
+      <div class="iana-prompt">¿Qué criterios debería usar una organización pública para clasificar qué datos pueden procesarse con herramientas de IA externas y cuáles no? Dame una guía práctica en lenguaje institucional, no técnico.</div>
+      <div class="iana-prompt">¿Cómo debería estructurarse una decisión institucional que está parcialmente apoyada en un análisis generado por IA para que sea gobernable y trazable?</div>
+
+      <div class="iana-como-pregunta">
+        <strong>📌 Algo que IAna podría preguntarles antes de responder:</strong>
+        "Antes de darte una respuesta sobre clasificación de datos — ¿ya existe en tu organización alguna política de seguridad de la información que cubra herramientas externas? ¿O estamos hablando de construirlo desde cero?"<br><br>
+        Esto no es traba — es calibración. La respuesta cambia completamente según el punto de partida.
+      </div>
+
+      <div class="iana-nota">
+        Después de interactuar con IAna: ¿qué idea concreta cambió o enriqueció la forma en que piensan sobre el análisis que acaban de hacer — y sobre quién es responsable de él?
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIDERAZGO -->
+<div class="section">
+  <div class="section-label">Distinción de liderazgo</div>
+
+  <div class="liderazgo-block">
+    <div class="lid-kicker">Liderazgo digital · Sesión 3</div>
+    <div class="lid-titulo">El líder digital no necesita analizar los datos. Necesita saber qué preguntarle a quien los analizó — incluso si quien los analizó es una IA.</div>
+    <div class="lid-texto">
+      Hoy la IA procesó información que tomaría horas analizar manualmente. En algunos casos llegó a conclusiones que coinciden con lo que ya sabían. En otros, encontró algo que no habían visto. Y en otros, puede que haya fallado en algo que solo quien conoce el contexto podía detectar.<br><br>
+      Esa última frase es la distinción de hoy: <em>el valor de quien lidera en la era de la IA no está en saber analizar datos — está en saber qué preguntar, qué validar y qué contexto la IA nunca va a tener.</em> Eso no se automatiza. Eso es exactamente lo que hace que el criterio humano siga siendo irreemplazable.<br><br>
+      Y lo que vivieron en la cadena de análisis de hoy lo ilustra con precisión: el grupo que recibió los datos de otra área pudo hacer el análisis técnico — pero el grupo dueño de los datos tenía algo que la IA nunca va a tener: el contexto institucional, la historia, las relaciones y las restricciones que no caben en una tabla.
+    </div>
+    <div class="lid-pregunta">¿Hay alguna decisión importante que hayan tomado recientemente donde el análisis de la IA podría haberles ayudado a verla mejor — o haberles llevado a una conclusión equivocada? ¿Por qué?</div>
+  </div>
+</div>
+
+<div class="cierre">
+  <div class="cierre-titulo">La IA puede ver los datos. El criterio sigue siendo de las personas.</div>
+  <div class="cierre-sub">El jueves cerramos con IA Estratégica — y con el plan que se llevan a su organización.</div>
+</div>
+
+</div>
+</body>
+</html>

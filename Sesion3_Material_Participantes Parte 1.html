@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sesión 3 — IA Analítica: La IA que ayuda a ver mejor</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1C3557;
+  --teal: #0B7A5F;
+  --teal-light: #E8F5F1;
+  --analitica: #0E7490;
+  --analitica-light: #ECFEFF;
+  --analitica-border: #A5F3FC;
+  --gold: #B8860B;
+  --gold-bg: #FBF5E6;
+  --gold-border: #E8C97A;
+  --red: #C0392B;
+  --red-bg: #FEF2F2;
+  --amber: #D97706;
+  --amber-bg: #FFFBEB;
+  --text: #1a1a1a;
+  --muted: #6B7280;
+  --border: #E2E0D8;
+  --bg: #F7F6F2;
+  --white: #FFFFFF;
+  --iana-purple: #5B21B6;
+  --iana-bg: #F5F3FF;
+  --iana-border: #DDD6FE;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.page { max-width: 720px; margin: 0 auto; padding: 0 16px 80px; }
+
+.clasificacion {
+  background: var(--analitica);
+  color: white;
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0 -16px 0;
+}
+
+.cover {
+  background: linear-gradient(135deg, #0C4A6E 0%, var(--analitica) 100%);
+  padding: 36px 28px 32px;
+  margin: 0 -16px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  border: 40px solid rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -20px;
+  width: 160px; height: 160px;
+  border: 30px solid rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.cover-tag {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.cover-title {
+  font-family: 'Lora', serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+.cover-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+.cover-meta { display: flex; gap: 12px; flex-wrap: wrap; }
+.cover-chip {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+}
+
+.section { margin-bottom: 32px; }
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.tipos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+@media (max-width: 560px) { .tipos-grid { grid-template-columns: 1fr; } }
+.tipo-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  text-align: center;
+}
+.tipo-card.activo {
+  border-color: var(--analitica);
+  border-width: 2px;
+  background: var(--analitica-light);
+}
+.tipo-card.hecho {
+  background: #F0FDF4;
+  border-color: #86EFAC;
+}
+.tipo-emoji { font-size: 22px; margin-bottom: 6px; }
+.tipo-nombre { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.tipo-card.activo .tipo-nombre { color: var(--analitica); }
+.tipo-card.hecho .tipo-nombre { color: var(--teal); }
+.tipo-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.tipo-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-top: 6px;
+}
+.badge-activo { background: var(--analitica); color: white; }
+.badge-hecho { background: var(--teal); color: white; }
+
+.intro-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--analitica);
+  border-radius: 0 10px 10px 0;
+  padding: 18px 20px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+.intro-card strong { color: var(--analitica); font-weight: 600; }
+
+.distincion {
+  background: var(--navy);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+.distincion-kicker {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.distincion-titulo {
+  font-family: 'Lora', serif;
+  font-size: 17px;
+  color: white;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.distincion-texto {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.distincion-pregunta {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  margin-top: 12px;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* RETOS */
+.reto {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.reto-head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.reto-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.ra .reto-icon { background: #14532D; }
+.rb .reto-icon { background: #1E3A8A; }
+.rc .reto-icon { background: #7C2D12; }
+.rd .reto-icon { background: #4C1D95; }
+.re .reto-icon { background: #134E4A; }
+
+.reto-head-info { flex: 1; }
+.reto-area {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+.reto-titulo { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.3; }
+.reto-tiempo {
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--bg);
+  border-radius: 20px;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.reto-body { padding: 18px 20px; }
+
+.situacion {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.7;
+}
+.situacion-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.prompt-copilot {
+  background: var(--analitica-light);
+  border: 1px solid var(--analitica-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.prompt-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--analitica);
+  margin-bottom: 8px;
+}
+.prompt-text {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #0C4A6E;
+  line-height: 1.7;
+  background: white;
+  border: 1px solid var(--analitica-border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+.prompt-alt {
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+.pasos { margin-bottom: 14px; }
+.paso {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #F3F4F6;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+  align-items: flex-start;
+}
+.paso:last-child { border-bottom: none; }
+.paso-num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--analitica);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.reflexion {
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #78350F;
+  line-height: 1.6;
+}
+.reflexion strong { font-weight: 600; color: var(--gold); }
+
+.personaliza {
+  background: var(--teal-light);
+  border: 1px solid rgba(11,122,95,0.2);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #064E3B;
+  line-height: 1.6;
+}
+.personaliza strong { font-weight: 600; color: var(--teal); }
+
+/* GOBIERNO */
+.gobierno-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.gobierno-head {
+  background: var(--navy);
+  padding: 16px 20px;
+}
+.gobierno-head-titulo {
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  color: white;
+  margin-bottom: 4px;
+}
+.gobierno-head-sub { font-size: 12px; color: rgba(255,255,255,0.6); }
+.gobierno-body { padding: 18px 20px; }
+.gobierno-intro {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 14px;
+  border-left: 3px solid var(--border);
+  padding-left: 12px;
+  font-style: italic;
+}
+.pregunta-gob {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+}
+.pregunta-gob::before { content: '→ '; color: var(--navy); font-weight: 600; }
+
+.cobit-ref {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 12px;
+}
+.cobit-head {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1D4ED8;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.cobit-texto { font-size: 12px; color: #1E40AF; line-height: 1.6; }
+
+/* IANA */
+.iana-block {
+  background: var(--iana-bg);
+  border: 1px solid var(--iana-border);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.iana-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.iana-avatar {
+  width: 30px; height: 30px;
+  background: var(--iana-purple);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  color: white; flex-shrink: 0;
+}
+.iana-label { font-size: 12px; font-weight: 600; color: var(--iana-purple); }
+.iana-sub { font-size: 10px; color: #7C3AED; opacity: 0.7; }
+.iana-texto { font-size: 13px; color: #3B1F6E; line-height: 1.65; margin-bottom: 10px; }
+.iana-prompt {
+  background: white;
+  border: 1px solid var(--iana-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #4C1D95;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+.iana-prompt::before {
+  content: '"';
+  font-size: 20px;
+  color: var(--iana-purple);
+  opacity: 0.4;
+  margin-right: 2px;
+  line-height: 0;
+  vertical-align: -4px;
+}
+.iana-nota { font-size: 11px; color: #6D28D9; margin-top: 8px; font-style: italic; }
+
+/* LIDERAZGO */
+.liderazgo-block {
+  background: var(--teal-light);
+  border: 1px solid rgba(11,122,95,0.2);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+.lid-kicker {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--teal); margin-bottom: 8px;
+}
+.lid-titulo {
+  font-family: 'Lora', serif;
+  font-size: 15px; color: #064E3B; margin-bottom: 8px; line-height: 1.3;
+}
+.lid-texto { font-size: 13px; color: #065F46; line-height: 1.7; }
+.lid-pregunta {
+  background: white;
+  border: 1px solid rgba(11,122,95,0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px; color: #064E3B;
+  margin-top: 10px; font-weight: 500; font-style: italic;
+}
+
+.cierre {
+  text-align: center;
+  padding: 28px 20px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-top: 28px;
+}
+.cierre-titulo { font-family: 'Lora', serif; font-size: 20px; color: var(--analitica); margin-bottom: 6px; }
+.cierre-sub { font-size: 13px; color: var(--muted); }
+
+@media (max-width: 480px) {
+  .cover { padding: 28px 18px 24px; }
+  .cover-title { font-size: 22px; }
+  .reto-body { padding: 14px 16px; }
+}
+@media print { body { background: white; } .reto { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="clasificacion">Taller de Gobierno de TI — Sesión 3 · Material para participantes</div>
+
+<div class="cover">
+  <div class="cover-tag">Sesión 3 de 4 · IA Analítica</div>
+  <div class="cover-title">La IA que ayuda<br>a ver mejor</div>
+  <div class="cover-sub">Copilot para analizar información, apoyar decisiones y gobernar los datos que le damos</div>
+  <div class="cover-meta">
+    <span class="cover-chip">Trabajo en grupo</span>
+    <span class="cover-chip">1 computador por grupo</span>
+    <span class="cover-chip">Copilot + Microsoft 365</span>
+  </div>
+</div>
+
+<!-- MAPA -->
+<div class="section">
+  <div class="section-label">Dónde estamos</div>
+  <div class="tipos-grid">
+    <div class="tipo-card hecho">
+      <div class="tipo-emoji">⚙️</div>
+      <div class="tipo-nombre">IA Operativa</div>
+      <div class="tipo-desc">Automatiza tareas del día a día. Copilot en acción.</div>
+      <div class="tipo-badge badge-hecho">✓ Sesión 2</div>
+    </div>
+    <div class="tipo-card activo">
+      <div class="tipo-emoji">🔍</div>
+      <div class="tipo-nombre">IA Analítica</div>
+      <div class="tipo-desc">Procesa información para ayudar a ver patrones y tomar mejores decisiones.</div>
+      <div class="tipo-badge badge-activo">Sesión 3 — Hoy</div>
+    </div>
+    <div class="tipo-card">
+      <div class="tipo-emoji">🧭</div>
+      <div class="tipo-nombre">IA Estratégica</div>
+      <div class="tipo-desc">Apoya decisiones de dirección institucional y gobierno.</div>
+    </div>
+  </div>
+
+  <div class="intro-card">
+    La sesión pasada usaron Copilot para <em>hacer cosas</em>: redactar, resumir, responder. Hoy lo van a usar para <em>ver mejor</em>: analizar información, identificar patrones, sintetizar datos de múltiples fuentes y apoyar decisiones que de otra manera tomarían mucho más tiempo.<br><br>
+    La <strong>IA analítica</strong> no reemplaza el criterio del directivo — le da más información procesada para que ese criterio sea mejor. Pero eso también tiene consecuencias: <strong>¿qué pasa cuando la IA analiza mal? ¿Quién verifica? ¿Quién responde por una decisión tomada con base en un análisis que nadie revisó?</strong>
+  </div>
+</div>
+
+<!-- DISTINCIÓN -->
+<div class="section">
+  <div class="section-label">La distinción clave de hoy</div>
+  <div class="distincion">
+    <div class="distincion-kicker">Gobierno de TI · Distinción 2</div>
+    <div class="distincion-titulo">Los datos que le das a la IA definen la calidad de su análisis. Y los datos que le das a la IA son responsabilidad tuya.</div>
+    <div class="distincion-texto">
+      Copilot analiza lo que le dan. Si le dan datos incompletos, análisis incompleto. Si le dan datos incorrectos, análisis incorrecto — presentado con total confianza. Si le dan datos sensibles de la organización, esos datos están en un sistema externo.<br><br>
+      La IA analítica amplifica la calidad de la información de entrada. No la corrige. No la cuestiona. No sabe lo que falta. Por eso el gobierno de la IA no empieza cuando el análisis falla — empieza cuando se decide qué información se le da y para qué.
+    </div>
+    <div class="distincion-pregunta">En su área: ¿qué información darían sin problema a Copilot para que la analice? ¿Y qué información nunca le darían — y por qué?</div>
+  </div>
+</div>
+
+<!-- RETOS -->
+<div class="section">
+  <div class="section-label">Los retos de hoy — un reto por grupo</div>
+
+  <!-- RETO A — FINANCIERA -->
+  <div class="reto ra">
+    <div class="reto-head">
+      <div class="reto-icon">💰</div>
+      <div class="reto-head-info">
+        <div class="reto-area">Grupo 1 · Gestión Financiera</div>
+        <div class="reto-titulo">Analizar la ejecución presupuestal y detectar señales de alerta</div>
+      </div>
+      <div class="reto-tiempo">20 min</div>
+    </div>
+    <div class="reto-body">
+      <div class="situacion">
+        <div class="situacion-label">La situación</div>
+        Tienen datos de ejecución presupuestal del trimestre: rubros, presupuesto asignado, ejecutado, porcentaje de avance. La dirección necesita saber qué está en riesgo de subejecución, qué está sobreejecutando y cuáles son los tres focos de atención antes del cierre del período.
+      </div>
+
+      <div class="prompt-copilot">
+        <div class="prompt-label">🔍 Prompts sugeridos — Copilot en Excel o Copilot Chat</div>
+        <div class="prompt-text">Tengo una tabla de ejecución presupuestal con estos datos: [pegar tabla o describir los datos]. Analiza y dime: (1) ¿qué rubros están en riesgo de subejecución al ritmo actual? (2) ¿hay algún rubro sobreejecutado que deba revisarse? (3) ¿cuáles son los tres focos de atención más urgentes antes del cierre? Preséntalo en lenguaje ejecutivo, no técnico-contable.</div>
+        <div class="prompt-text" style="margin-top:8px">Basándote en estos datos de ejecución, ¿qué preguntas debería hacerle al equipo financiero en la próxima reunión de seguimiento? Dame 5 preguntas concretas orientadas a decisiones.</div>
+        <div class="prompt-alt">👉 Si no tienen datos reales, construyan una tabla simple: 5-6 rubros con presupuesto asignado y ejecutado al trimestre. Con eso es suficiente para el ejercicio.</div>
+      </div>
+
+      <div class="pasos">
+        <div class="paso"><span class="paso-num">1</span>Preparen una tabla de datos — real o de ejemplo — en Excel o en texto simple</div>
+        <div class="paso"><span class="paso-num">2</span>Usen Copilot en Excel (panel derecho) o copilot.microsoft.com con los datos pegados</div>
+        <div class="paso"><span class="paso-num">3</span>Lean el análisis: ¿detectó lo que ustedes ya sabían? ¿Encontró algo que no habían visto?</div>
+        <div class="paso"><span class="paso-num">4</span>Pídanle que genere un resumen de media página para presentar a la dirección</div>
+      </div>
+
+      <div class="reflexion">
+        <strong>Para discutir:</strong> ¿Presentarían este análisis a la dirección sin revisarlo? ¿Qué contexto tiene el área financiera que Copilot no puede saber? ¿Hay algún dato que no deberían haber pegado en Copilot?
+      </div>
+      <div class="personaliza">
+        <strong>Personalícenlo:</strong> Usen datos reales de bajo riesgo o inventen una tabla que se parezca a lo que manejan. El ejercicio vale igual con datos ficticios que tengan la estructura correcta.
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO B — RRHH -->
+  <div class="reto rb">
+    <div class="reto-head">
+      <div class="reto-icon">👥</div>
+      <div class="reto-head-info">
+        <div class="reto-area">Grupo 2 · Gestión Humana</div>
+        <div class="reto-titulo">Analizar indicadores de talento y detectar tendencias críticas</div>
+      </div>
+      <div class="reto-tiempo">20 min</div>
+    </div>
+    <div class="reto-body">
+      <div class="situacion">
+        <div class="situacion-label">La situación</div>
+        Tienen datos de personal: rotación por área, ausentismo, horas de capacitación, desempeño promedio por dependencia. La dirección quiere saber qué tendencias merecen atención y qué áreas presentan señales de alerta antes de la revisión semestral.
+      </div>
+
+      <div class="prompt-copilot">
+        <div class="prompt-label">🔍 Prompts sugeridos — Copilot Chat o Copilot en Excel</div>
+        <div class="prompt-text">Tengo estos indicadores de gestión humana por área: [describir o pegar datos]. Analiza y dime: (1) ¿qué tendencias son preocupantes? (2) ¿qué áreas muestran señales positivas que vale la pena reconocer? (3) ¿qué recomendarías revisar con mayor urgencia? Usa lenguaje de directivos, no de recursos humanos.</div>
+        <div class="prompt-text" style="margin-top:8px">Con base en estos datos, ¿qué tres preguntas debería hacerse la dirección sobre el clima y la capacidad operativa del equipo? ¿Qué información adicional necesitaría para tomar decisiones bien fundamentadas?</div>
+        <div class="prompt-alt">👉 Datos de ejemplo: creen una tabla con 4-5 áreas, rotación trimestral (%), ausentismo promedio (días), % personal capacitado. Con esa estructura el ejercicio funciona perfectamente.</div>
+      </div>
+
+      <div class="pasos">
+        <div class="paso"><span class="paso-num">1</span>Preparen los datos — pueden ser ficticios con nombres de áreas genéricas</div>
+        <div class="paso"><span class="paso-num">2</span>Ingresen el prompt en Copilot Chat o en Excel con el panel de Copilot activo</div>
+        <div class="paso"><span class="paso-num">3</span>Revisen el análisis: ¿qué capturó bien? ¿qué matiz humano no puede ver la IA?</div>
+        <div class="paso"><span class="paso-num">4</span>Pídanle que proponga indicadores adicionales que complementarían el análisis</div>
+      </div>
+
+      <div class="reflexion">
+        <strong>Para discutir:</strong> ¿Qué información sobre las personas de su organización nunca le darían a Copilot? ¿Por qué? ¿Qué política debería existir sobre el uso de datos de personal en herramientas de IA?
+      </div>
+      <div class="personaliza">
+        <strong>Personalícenlo:</strong> Usen indicadores genéricos si los datos de personal son sensibles. El ejercicio funciona perfectamente con datos inventados que tengan la estructura correcta.
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO C — OPERACIONES / SERVICIOS -->
+  <div class="reto rc">
+    <div class="reto-head">
+      <div class="reto-icon">⚓</div>
+      <div class="reto-head-info">
+        <div class="reto-area">Grupo 3 · Operaciones y Servicios</div>
+        <div class="reto-titulo">Analizar indicadores de servicio e identificar oportunidades de mejora</div>
+      </div>
+      <div class="reto-tiempo">20 min</div>
+    </div>
+    <div class="reto-body">
+      <div class="situacion">
+        <div class="situacion-label">La situación</div>
+        Tienen datos de prestación de servicios: tiempos de respuesta, volumen de solicitudes por tipo, porcentaje de resolución en primer contacto, quejas y reclamos. La dirección quiere identificar dónde se están generando cuellos de botella y qué servicios tienen mayor oportunidad de mejora.
+      </div>
+
+      <div class="prompt-copilot">
+        <div class="prompt-label">🔍 Prompts sugeridos — Copilot Chat o Copilot en Excel</div>
+        <div class="prompt-text">Analiza estos indicadores de prestación de servicios: [describir o pegar datos]. Dime: (1) ¿dónde están los principales cuellos de botella? (2) ¿qué tipos de servicio muestran mayor deterioro? (3) ¿qué acciones concretas generarían el mayor impacto positivo para el usuario? Prioriza por urgencia e impacto.</div>
+        <div class="prompt-text" style="margin-top:8px">Si tuvieras que presentar estas cifras a la dirección en 3 minutos, ¿cuál sería el mensaje central? ¿Qué no debería faltar en esa presentación?</div>
+        <div class="prompt-alt">👉 Datos de ejemplo: 4-5 tipos de servicio con tiempo promedio de atención (días), volumen mensual de solicitudes, % resuelto en plazo, número de quejas. Eso es todo lo que necesitan.</div>
+      </div>
+
+      <div class="pasos">
+        <div class="paso"><span class="paso-num">1</span>Construyan o usen una tabla de indicadores de su área de servicio — real o ejemplo</div>
+        <div class="paso"><span class="paso-num">2</span>Usen Copilot para el análisis. Si tienen los datos en Excel, úsenlo ahí directamente</div>
+        <div class="paso"><span class="paso-num">3</span>Comparen el análisis de Copilot con lo que ya saben del área: ¿coincide? ¿contradice? ¿agrega algo?</div>
+        <div class="paso"><span class="paso-num">4</span>Pídanle que genere una recomendación priorizada con lenguaje ejecutivo</div>
+      </div>
+
+      <div class="reflexion">
+        <strong>Para discutir:</strong> ¿El análisis de Copilot podría haber llegado a una conclusión diferente si los datos estuvieran mal registrados? ¿Quién valida la calidad de los datos antes de analizarlos con IA?
+      </div>
+      <div class="personaliza">
+        <strong>Personalícenlo:</strong> El ejercicio aplica a cualquier tipo de servicio — marítimo, documental, de atención al usuario. Adapten el tipo de servicio a lo que más reconocen de su trabajo.
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO D — JURÍDICA / GESTIÓN DOCUMENTAL -->
+  <div class="reto rd">
+    <div class="reto-head">
+      <div class="reto-icon">⚖️</div>
+      <div class="reto-head-info">
+        <div class="reto-area">Grupo 4 · Jurídica y Gestión Documental</div>
+        <div class="reto-titulo">Analizar documentos complejos y extraer lo que importa</div>
+      </div>
+      <div class="reto-tiempo">20 min</div>
+    </div>
+    <div class="reto-body">
+      <div class="situacion">
+        <div class="situacion-label">La situación</div>
+        Tienen un documento extenso — una norma, un contrato, un informe de auditoría, una circular — que la dirección necesita entender en los puntos clave. Copilot puede leer ese documento y extraer lo relevante para una decisión específica.
+      </div>
+
+      <div class="prompt-copilot">
+        <div class="prompt-label">🔍 Prompts sugeridos — Copilot en Word o Copilot Chat</div>
+        <div class="prompt-text">Lee este documento y dime: (1) ¿cuáles son los tres puntos más importantes para un directivo no especialista en derecho? (2) ¿qué obligaciones genera para la organización? (3) ¿qué riesgos identifica si no se cumple? (4) ¿hay alguna ambigüedad importante que deba consultarse con el área jurídica? Responde en lenguaje directivo, no legal.</div>
+        <div class="prompt-text" style="margin-top:8px">Compara estos dos documentos [o secciones] y dime cuáles son las diferencias más relevantes para una decisión de [tipo de decisión]. ¿Cuál presenta más riesgos? ¿Por qué?</div>
+        <div class="prompt-alt">👉 Usen un documento real de bajo riesgo — una norma pública, una circular, un informe que ya esté publicado — o inventen un texto corto de 3-4 párrafos que simule una resolución institucional.</div>
+      </div>
+
+      <div class="pasos">
+        <div class="paso"><span class="paso-num">1</span>Seleccionen un documento — puede ser una norma pública, una circular o texto de ejemplo</div>
+        <div class="paso"><span class="paso-num">2</span>En Copilot en Word: abran el documento y activen Copilot. En Copilot Chat: peguen el texto con las instrucciones</div>
+        <div class="paso"><span class="paso-num">3</span>Revisen el análisis: ¿captó las obligaciones correctas? ¿omitió algo relevante?</div>
+        <div class="paso"><span class="paso-num">4</span>Pídanle que identifique las preguntas que un directivo debería hacerle al área jurídica antes de actuar</div>
+      </div>
+
+      <div class="reflexion">
+        <strong>Para discutir:</strong> ¿Podría usarse Copilot para revisar contratos antes de firmarlos? ¿Qué condiciones de gobierno necesitarían para que eso sea responsable? ¿Quién sería responsable si Copilot pasa por alto una cláusula crítica?
+      </div>
+      <div class="personaliza">
+        <strong>Personalícenlo:</strong> El tipo de documento puede variar — norma, contrato, informe, resolución. Lo que importa es la pregunta: ¿qué necesita saber un directivo de este documento para tomar una decisión bien informada?
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO E — TI / GESTIÓN DE PROYECTOS -->
+  <div class="reto re">
+    <div class="reto-head">
+      <div class="reto-icon">🖥️</div>
+      <div class="reto-head-info">
+        <div class="reto-area">Grupo 5 · TI y Gestión de Proyectos</div>
+        <div class="reto-titulo">Analizar el estado de un portafolio de proyectos y priorizar</div>
+      </div>
+      <div class="reto-tiempo">20 min</div>
+    </div>
+    <div class="reto-body">
+      <div class="situacion">
+        <div class="situacion-label">La situación</div>
+        Tienen un conjunto de proyectos activos con información de avance, presupuesto, riesgos y valor estratégico. La dirección necesita decidir cuáles acelerar, cuáles revisar y si alguno debe detenerse. Copilot puede ayudar a ver el portafolio completo con criterios claros.
+      </div>
+
+      <div class="prompt-copilot">
+        <div class="prompt-label">🔍 Prompts sugeridos — Copilot Chat o Copilot en Excel</div>
+        <div class="prompt-text">Tengo estos proyectos activos con su estado actual: [describir o pegar tabla con nombre, avance %, presupuesto ejecutado, riesgo principal, alineación estratégica]. Analiza el portafolio y dime: (1) ¿cuáles proyectos merecen mayor atención de la dirección? (2) ¿hay alguno que muestre señales de estar en riesgo de no completarse? (3) ¿qué criterios usarías para priorizar si hay que liberar recursos? Responde con criterio estratégico, no solo técnico.</div>
+        <div class="prompt-text" style="margin-top:8px">Si tuvieras que presentarle a la junta directiva el estado del portafolio en 5 minutos, ¿cuál sería el mensaje más importante? ¿Qué decisión deberían tomar hoy?</div>
+        <div class="prompt-alt">👉 Creen una tabla con 4-5 proyectos ficticios: nombre, % avance, presupuesto total / ejecutado, riesgo principal (texto breve), y una columna de alineación estratégica (alta/media/baja). Con eso el ejercicio es muy rico.</div>
+      </div>
+
+      <div class="pasos">
+        <div class="paso"><span class="paso-num">1</span>Construyan una tabla del portafolio — real o de ejemplo — con la estructura sugerida</div>
+        <div class="paso"><span class="paso-num">2</span>Usen Copilot para el análisis estratégico del portafolio</div>
+        <div class="paso"><span class="paso-num">3</span>Comparen la priorización que hace Copilot con la que harían ustedes: ¿coincide? ¿qué contexto no tiene la IA?</div>
+        <div class="paso"><span class="paso-num">4</span>Pídanle que genere una recomendación para la junta con el formato: situación / decisión recomendada / condición de éxito</div>
+      </div>
+
+      <div class="reflexion">
+        <strong>Para discutir:</strong> ¿Podría usarse este tipo de análisis como soporte para decisiones reales del Comité de Dirección? ¿Qué condiciones necesitarían para confiar en ese análisis? ¿Qué validación adicional haría un directivo antes de actuar sobre él?
+      </div>
+      <div class="personaliza">
+        <strong>Personalícenlo:</strong> Si tienen un portafolio real, úsenlo con datos de bajo riesgo. Si no, los proyectos ficticios funcionan perfectamente — lo que importa es la lógica de análisis, no los datos específicos.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="cierre">
+  <div class="cierre-titulo">La IA puede ver los datos. El criterio sigue siendo suyo.</div>
+  <div class="cierre-sub">El jueves cerramos con IA Estratégica — y con el plan que se llevan a su organización.</div>
+</div>
+
+</div>
+</body>
+</html>
