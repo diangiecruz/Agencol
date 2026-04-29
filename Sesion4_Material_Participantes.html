@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sesión 4 — IA Estratégica: La IA que transforma cómo dirigimos</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#1C3557;--teal:#0B7A5F;--teal-light:#E8F5F1;
+  --est:#7C3AED;--est-light:#F5F3FF;--est-border:#DDD6FE;
+  --gold:#B8860B;--gold-bg:#FBF5E6;--gold-border:#E8C97A;
+  --red:#C0392B;--red-bg:#FEF2F2;--amber:#D97706;--amber-bg:#FFFBEB;
+  --text:#1a1a1a;--muted:#6B7280;--border:#E2E0D8;--bg:#F7F6F2;--white:#FFFFFF;
+  --iana-purple:#5B21B6;--iana-bg:#F5F3FF;--iana-border:#DDD6FE;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.page{max-width:720px;margin:0 auto;padding:0 16px 80px}
+
+.clasificacion{background:var(--est);color:white;text-align:center;padding:8px 16px;font-size:10px;letter-spacing:3px;font-weight:600;text-transform:uppercase;margin:0 -16px 0}
+
+.cover{background:linear-gradient(135deg,#3B0764 0%,var(--est) 100%);padding:36px 28px 32px;margin:0 -16px 32px;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border:40px solid rgba(255,255,255,0.05);border-radius:50%}
+.cover::after{content:'';position:absolute;bottom:-60px;left:-20px;width:160px;height:160px;border:30px solid rgba(255,255,255,0.04);border-radius:50%}
+.cover-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.55);font-weight:600;margin-bottom:10px}
+.cover-title{font-family:'Lora',serif;font-size:26px;font-weight:600;color:white;line-height:1.25;margin-bottom:6px}
+.cover-sub{font-size:13px;color:rgba(255,255,255,0.65);font-weight:300;margin-bottom:20px}
+.cover-meta{display:flex;gap:12px;flex-wrap:wrap}
+.cover-chip{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,0.85);font-weight:500}
+
+.section{margin-bottom:32px}
+.section-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.tipos-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px}
+@media(max-width:560px){.tipos-grid{grid-template-columns:1fr}}
+.tipo-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-align:center}
+.tipo-card.activo{border-color:var(--est);border-width:2px;background:var(--est-light)}
+.tipo-card.hecho{background:#F0FDF4;border-color:#86EFAC}
+.tipo-emoji{font-size:22px;margin-bottom:6px}
+.tipo-nombre{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px}
+.tipo-card.activo .tipo-nombre{color:var(--est)}
+.tipo-card.hecho .tipo-nombre{color:var(--teal)}
+.tipo-desc{font-size:11px;color:var(--muted);line-height:1.5}
+.tipo-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-top:6px}
+.badge-activo{background:var(--est);color:white}
+.badge-hecho{background:var(--teal);color:white}
+
+.intro-card{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--est);border-radius:0 10px 10px 0;padding:18px 20px;font-size:14px;color:var(--text);line-height:1.75;margin-bottom:20px}
+.intro-card strong{color:var(--est);font-weight:600}
+
+.distincion{background:var(--navy);border-radius:10px;padding:20px 24px;margin-bottom:24px}
+.distincion-kicker{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);font-weight:600;margin-bottom:6px}
+.distincion-titulo{font-family:'Lora',serif;font-size:17px;color:white;margin-bottom:10px;line-height:1.3}
+.distincion-texto{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.7;font-weight:300}
+.distincion-pregunta{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:10px 14px;font-size:13px;color:rgba(255,255,255,0.85);margin-top:12px;font-style:italic;line-height:1.6}
+
+.planb{background:#FFFBEB;border:1px solid #FDE68A;border-left:4px solid var(--amber);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:28px;font-size:12px;color:#78350F;line-height:1.6}
+.planb strong{font-weight:600}
+
+/* EJERCICIO */
+.ejercicio{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:20px}
+.ejercicio-head{background:linear-gradient(135deg,#3B0764,var(--est));padding:20px 24px}
+.ejercicio-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);font-weight:600;margin-bottom:6px}
+.ejercicio-titulo{font-family:'Lora',serif;font-size:18px;color:white;line-height:1.3;margin-bottom:4px}
+.ejercicio-sub{font-size:12px;color:rgba(255,255,255,0.6)}
+.ejercicio-body{padding:20px 22px}
+
+/* FASES */
+.fase{background:var(--bg);border:1px solid var(--border);border-radius:10px;margin-bottom:16px;overflow:hidden}
+.fase-head{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--border);background:var(--white)}
+.fase-num{width:28px;height:28px;border-radius:50%;background:var(--est);color:white;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fase-num-0{background:var(--navy)}
+.fase-titulo{font-size:14px;font-weight:600;color:var(--text);flex:1}
+.fase-tiempo{font-size:11px;color:var(--muted);background:var(--bg);border-radius:20px;padding:3px 10px;border:1px solid var(--border)}
+.fase-body{padding:16px 18px}
+.fase-desc{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:14px}
+
+.datos-prompt{background:#F0FDF4;border:1px solid #86EFAC;border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:12px;color:#14532D;line-height:1.6}
+.datos-prompt strong{font-weight:600;color:#166534;display:block;margin-bottom:4px}
+
+.prompt-text{font-family:'Courier New',monospace;font-size:12px;color:#3B0764;line-height:1.7;background:white;border:1px solid var(--est-border);border-radius:6px;padding:10px 12px;margin-bottom:6px}
+
+/* PASOS */
+.pasos{margin-bottom:12px}
+.paso{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #F3F4F6;font-size:13px;color:var(--text);line-height:1.6;align-items:flex-start}
+.paso:last-child{border-bottom:none}
+.paso-num{width:22px;height:22px;border-radius:50%;background:var(--est);color:white;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.paso-iana .paso-num{background:var(--iana-purple)}
+.paso-iter .paso-num{background:var(--navy)}
+
+.reflexion{background:var(--gold-bg);border:1px solid var(--gold-border);border-radius:8px;padding:12px 14px;margin-top:12px;font-size:13px;color:#78350F;line-height:1.6}
+.reflexion strong{font-weight:600;color:var(--gold);display:block;margin-bottom:2px}
+
+/* PROMPT PRINCIPAL */
+.prompt-principal{background:var(--est-light);border:1px solid var(--est-border);border-radius:8px;padding:14px 16px;margin-bottom:6px}
+.prompt-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--est);margin-bottom:8px}
+.prompt-alt{font-size:11px;color:var(--muted);font-style:italic;margin-top:6px}
+
+/* PRESENTACIÓN */
+.presentacion-box{background:#FEF3C7;border:1px solid #FDE68A;border-radius:8px;padding:14px 18px;margin-top:20px;font-size:13px;color:#78350F;line-height:1.7}
+.presentacion-box strong{font-weight:600;color:var(--amber);display:block;margin-bottom:6px}
+.presentacion-box ul{margin:6px 0 0 18px}
+.presentacion-box li{margin-bottom:4px}
+
+.ejercicio-paralelo{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:8px;padding:10px 14px;margin-top:14px;font-size:12px;color:white;font-weight:600;line-height:1.5;letter-spacing:0.2px}
+
+/* INSTRUCCIÓN GLOBAL */
+.instruccion-global{background:var(--navy);border-radius:8px;padding:12px 18px;margin-bottom:18px;font-size:13px;color:rgba(255,255,255,0.9);font-weight:500;line-height:1.6}
+
+/* PASO CON PROMPT */
+.paso-item{margin-bottom:14px}
+.paso-instruccion{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;font-size:13px;color:var(--text);line-height:1.6}
+.paso-num{width:22px;height:22px;border-radius:50%;background:var(--est);color:white;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.paso-num-iana{background:var(--iana-purple)}
+.paso-num-iter{background:var(--navy)}
+.paso-solo{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #F3F4F6;font-size:13px;color:var(--text);line-height:1.6}
+.paso-solo:last-child{border-bottom:none}
+.paso-prompt{font-family:'Courier New',monospace;font-size:12px;color:#3B0764;line-height:1.7;background:white;border:1px solid var(--est-border);border-radius:6px;padding:10px 12px;margin-left:32px}
+.paso-prompt-iana{border-color:var(--iana-border);color:#4C1D95}
+
+/* CIERRE DEL EJERCICIO */
+.cierre-ejercicio{background:var(--navy);border-radius:10px;padding:18px 22px;margin-top:8px}
+.cierre-pregunta{font-family:'Lora',serif;font-size:15px;color:white;line-height:1.4;font-style:italic}
+
+/* LIDERAZGO */
+.liderazgo-block{background:var(--teal-light);border:1px solid rgba(11,122,95,0.2);border-radius:10px;padding:18px 20px;margin-bottom:24px}
+.lid-kicker{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--teal);margin-bottom:8px}
+.lid-titulo{font-family:'Lora',serif;font-size:15px;color:#064E3B;margin-bottom:8px;line-height:1.3}
+.lid-texto{font-size:13px;color:#065F46;line-height:1.7}
+.lid-pregunta{background:white;border:1px solid rgba(11,122,95,0.2);border-radius:8px;padding:10px 14px;font-size:13px;color:#064E3B;margin-top:10px;font-weight:500;font-style:italic}
+
+.cierre-final{background:var(--navy);border-radius:10px;padding:28px 24px;margin-top:28px;text-align:center}
+.cierre-final-titulo{font-family:'Lora',serif;font-size:22px;color:white;margin-bottom:8px}
+.cierre-final-sub{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:12px}
+.cierre-final-nota{font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.5px}
+
+@media(max-width:480px){
+  .cover{padding:28px 18px 24px}
+  .cover-title{font-size:22px}
+  .ejercicio-body{padding:14px 16px}
+  .fase-body{padding:12px 14px}
+}
+@media print{body{background:white}.ejercicio{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="clasificacion">Taller de Gobierno de TI — Sesión 4 · Material para participantes</div>
+
+<div class="cover">
+  <div class="cover-tag">Sesión 4 de 4 · IA Estratégica · Sesión de cierre</div>
+  <div class="cover-title">La IA que transforma<br>cómo dirigimos</div>
+  <div class="cover-sub">Decisiones reales, análisis estratégico y el gobierno detrás de todo</div>
+  <div class="cover-meta">
+    <span class="cover-chip">Trabajo en grupo</span>
+    <span class="cover-chip">Escenario propio</span>
+    <span class="cover-chip">Sesión de cierre</span>
+  </div>
+</div>
+
+<!-- MAPA -->
+<div class="section">
+  <div class="section-label">El cierre del recorrido</div>
+  <div class="tipos-grid">
+    <div class="tipo-card hecho">
+      <div class="tipo-emoji">⚙️</div>
+      <div class="tipo-nombre">IA Operativa</div>
+      <div class="tipo-desc">IA para tareas cotidianas.</div>
+      <div class="tipo-badge badge-hecho">✓ Sesión 2</div>
+    </div>
+    <div class="tipo-card hecho">
+      <div class="tipo-emoji">🔍</div>
+      <div class="tipo-nombre">IA Analítica</div>
+      <div class="tipo-desc">IA para analizar datos y ver mejor.</div>
+      <div class="tipo-badge badge-hecho">✓ Sesión 3</div>
+    </div>
+    <div class="tipo-card activo">
+      <div class="tipo-emoji">🧭</div>
+      <div class="tipo-nombre">IA Estratégica</div>
+      <div class="tipo-desc">IA para apoyar decisiones que definen el rumbo institucional.</div>
+      <div class="tipo-badge badge-activo">Sesión 4 — Hoy</div>
+    </div>
+  </div>
+  <div class="intro-card">
+    En las sesiones anteriores usaron la IA para hacer y para ver. Hoy la usan para <strong>decidir mejor</strong> — en el territorio de las decisiones que tienen consecuencias institucionales, que alguien tiene que firmar, defender y responder.<br><br>
+    El ejercicio trabaja con un escenario que ustedes eligen: real, propio, con las tensiones que viene cargando. Cada grupo recorre cuatro fases de análisis y al final presenta sus hallazgos.
+</div>
+
+<!-- DISTINCIÓN -->
+<div class="section">
+  <div class="section-label">La distinción clave antes de empezar</div>
+  <div class="distincion">
+    <div class="distincion-kicker">Para tener presente</div>
+    <div class="distincion-titulo">La IA apoya el análisis estratégico. La responsabilidad institucional sobre la decisión la asume quien tiene el cargo y el mandato para hacerlo.</div>
+    <div class="distincion-texto">
+      Una herramienta de IA puede generar escenarios, anticipar riesgos, comparar opciones y sintetizar información en segundos. Cuando una entidad toma una decisión estratégica — aprobar un proyecto, asignar recursos, adoptar una tecnología — alguien con nombre y cargo asume la responsabilidad de que esa decisión sea buena.<br><br>
+      El gobierno estratégico existe para que haya una estructura clara de quién decide, con qué información, bajo qué criterios y rindiendo cuentas ante quién. Ese esquema define si la IA se convierte en un insumo confiable o en una coartada cómoda.
+    </div>
+    <div class="distincion-pregunta">En su entidad: ¿hay decisiones estratégicas que hoy se toman sin esa claridad? ¿Qué pasaría si una de esas decisiones se apoyara en un análisis de IA que nadie revisó?</div>
+  </div>
+</div>
+
+<!-- EJERCICIO PRINCIPAL -->
+<div class="section">
+  <div class="section-label">El ejercicio</div>
+
+  <div class="ejercicio">
+    <div class="ejercicio-head">
+      <div class="ejercicio-tag">Trabajo en grupo · 4 fases · ~55 minutos</div>
+      <div class="ejercicio-titulo">Una decisión estratégica real — analizada con IA</div>
+      <div class="ejercicio-sub">Evaluación · Escenarios · Riesgos · Comunicación ejecutiva</div>
+      <div class="ejercicio-paralelo">Desarrollen cada fase en paralelo en las dos herramientas: la IA de su preferencia y IAna. Los prompts son los mismos en ambas.</div>
+    </div>
+    <div class="ejercicio-body">
+
+      <!-- FASE 0 -->
+      <div class="fase">
+        <div class="fase-head">
+          <div class="fase-num fase-num-0">0</div>
+          <div class="fase-titulo">Elijan y afinen su escenario</div>
+          <div class="fase-tiempo">5 min</div>
+        </div>
+        <div class="fase-body">
+          <div class="fase-desc">
+            Identifiquen una decisión estratégica que su entidad enfrenta, tuvo que tomar recientemente o tiene pendiente. Puede ser sobre tecnología, estructura, inversión, alianzas o regulación. Descríbanla con precisión: qué se está decidiendo, quiénes se ven afectados y qué consecuencias tiene tomar la decisión equivocada.
+          </div>
+
+          <div class="paso-item">
+            <div class="paso-instruccion"><span class="paso-num fase-num-0">1</span>Acuerden el escenario. Si prefieren uno neutro, genérenlo con este prompt en IAna:</div>
+            <div class="paso-prompt paso-prompt-iana">Genera una decisión estratégica difícil que enfrenta una entidad pública colombiana con presencia nacional. Puede ser sobre reestructuración, expansión de servicios, cambio regulatorio o inversión mayor. Descríbela en tres líneas: qué se decide, quiénes se ven afectados y cuáles son las presiones a favor y en contra.</div>
+          </div>
+
+          <div class="paso-item">
+            <div class="paso-instruccion"><span class="paso-num fase-num-0">2</span>Abran IAna y afinen el escenario con este prompt — respondan sus preguntas hasta tener la decisión bien delimitada:</div>
+            <div class="paso-prompt paso-prompt-iana">Queremos analizar estratégicamente esta decisión: [su escenario]. Antes de empezar, ¿qué preguntas deberíamos responder para asegurarnos de que estamos analizando la decisión correcta y no un síntoma de algo más profundo?</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FASE 1 -->
+      <div class="fase">
+        <div class="fase-head">
+          <div class="fase-num">1</div>
+          <div class="fase-titulo">Evalúen la iniciativa</div>
+          <div class="fase-tiempo">12 min</div>
+        </div>
+        <div class="fase-body">
+          <div class="fase-desc">
+            La evaluación estratégica responde tres preguntas: si la decisión encaja con la dirección que lleva la entidad, qué valor real genera para quienes dependen de ella y qué costo institucional tiene postergarse. Abran la IA de su preferencia con el escenario afinado — IAna ya lo tiene del chat anterior.
+          </div>
+
+          <div class="paso-item">
+            <div class="paso-instruccion"><span class="paso-num">1</span>Corran el siguiente prompt en las dos herramientas:</div>
+            <div class="paso-prompt">Evalúa esta decisión estratégica desde tres ángulos: (1) alineación con los objetivos de una entidad pública de este tipo en este momento, (2) valor real que genera si se ejecuta bien, (3) consecuencias institucionales si se posterga. Piensa paso a paso antes de responder.</div>
+          </div>
+
+          <div class="paso-item">
+            <div class="paso-instruccion"><span class="paso-num paso-num-iter">2</span>Con lo que tienen de las dos, iteren en las dos herramientas con este prompt RTF:</div>
+            <div class="paso-prompt">Eres un asesor de gobierno institucional que ha visto fracasar decisiones similares [ROL]. Dime los dos errores de proceso más comunes al tomar este tipo de decisión — no errores de contenido, sino de cómo se decide [TAREA]. Directo y específico [FORMATO].</div>
+          </div>
+
+          <div class="paso-solo"><span class="paso-num paso-num-iter">3</span>Anoten el ángulo que ninguna de las dos habría generado el grupo solo.</div>
+
+        </div>
+      </div>
+
+      <!-- FASE 2 -->
+      <div class="fase">
+        <div class="fase-head">
+          <div class="fase-num">2</div>
+          <div class="fase-titulo">Proyecten los escenarios posibles</div>
+          <div class="fase-tiempo">12 min</div>
+        </div>
+        <div class="fase-body">
+          <div class="fase-desc">
+            El análisis de escenarios le da a quien decide algo que pocas entidades construyen antes de actuar: señales tempranas acordadas de antemano que indican cuál de los futuros posibles está llegando. Una entidad que proyecta tres desenlaces antes de comprometerse con uno tiene criterios de alerta — y eso es una ventaja institucional concreta.
+          </div>
+
+          <div class="paso-item">
+            <div class="paso-instruccion"><span class="paso-num">1</span>Corran el siguiente prompt en las dos herramientas:</div>
+            <div class="paso-prompt">Con base en la evaluación que hicimos, construye tres escenarios para los próximos 18 meses — uno si la decisión se toma y se ejecuta bien, uno si se toma pero la ejecución falla, y uno si se posterga. Para cada escenario: cómo queda la entidad, quiénes se ven más afectados y cuál sería la señal más temprana — observable, no teórica — de que ese escenario está ocurriendo. Piensa paso a paso.</div>
+          </div>
+
+          <div class="paso-item">
+            <div class="paso-instruccion"><span class="paso-num paso-num-iter">2</span>Profundicen en el escenario que más incertidumbre genera en el grupo con este prompt en las dos herramientas:</div>
+            <div class="paso-prompt">Enfócate en el escenario donde la ejecución falla. ¿Cuáles son las tres señales observables en los primeros 90 días — en el comportamiento de las personas, en los procesos o en los resultados — de que ese escenario está ocurriendo?</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FASE 3 -->
+      <div class="fase">
+        <div class="fase-head">
+          <div class="fase-num">3</div>
+          <div class="fase-titulo">Gestionen los riesgos estratégicos</div>
+          <div class="fase-tiempo">12 min</div>
+        </div>
+        <div class="fase-body">
+          <div class="fase-desc">
+            Los riesgos estratégicos son los que afectan la reputación, la gobernabilidad o la continuidad institucional — los que requieren autoridad, visibilidad y decisión en los niveles más altos para ser gestionados. Identificarlos con precisión implica también determinar quién tiene el mandato formal de gestionarlos, porque un riesgo con dueño formal tiene una trayectoria de gestión; uno sin dueño, tiene una vulnerabilidad abierta.
+          </div>
+
+          <div class="paso-item">
+            <div class="paso-instruccion"><span class="paso-num">1</span>Corran el siguiente prompt en las dos herramientas:</div>
+            <div class="paso-prompt">Con base en la evaluación y los escenarios que construimos, identifica los cinco riesgos institucionales más probables — los que afecten la reputación, la continuidad o la gobernabilidad de la entidad. Para cada uno: cómo se vería si ocurre, cuál sería su impacto real y qué estructura o capacidad debería tener en pie la dirección antes de que ocurra. Piensa paso a paso.</div>
+          </div>
+
+          <div class="paso-item">
+            <div class="paso-instruccion"><span class="paso-num paso-num-iter">2</span>Iteren con este prompt en las dos herramientas:</div>
+            <div class="paso-prompt">Asume que dentro de dos años el riesgo más grave de esta lista ocurrió y nadie lo vio venir. Escribe el párrafo de la auditoría interna que describe qué señales existían y por qué la dirección no actuó sobre ellas.</div>
+          </div>
+
+          <div class="paso-solo"><span class="paso-num paso-num-iter">3</span>Identifiquen para cuáles de esos riesgos existe hoy en su entidad alguien con mandato claro de gestionarlos — y para cuáles ese mandato está vacío.</div>
+
+        </div>
+      </div>
+
+      <!-- FASE 4 -->
+      <div class="fase">
+        <div class="fase-head">
+          <div class="fase-num">4</div>
+          <div class="fase-titulo">Construyan el argumento ejecutivo</div>
+          <div class="fase-tiempo">12 min</div>
+        </div>
+        <div class="fase-body">
+          <div class="fase-desc">
+            Un argumento ejecutivo es un instrumento de decisión. Su función es darle a quien tiene que decidir exactamente lo que necesita: qué se está pidiendo, por qué ahora, qué riesgos se asumen conscientemente y quién responde. La capacidad de construirlo con precisión sobre el análisis que acaban de hacer es la prueba de que el análisis fue real.
+          </div>
+
+          <div class="paso-item">
+            <div class="paso-instruccion"><span class="paso-num">1</span>Corran el siguiente prompt en las dos herramientas:</div>
+            <div class="paso-prompt">Con base en todo el análisis que hemos construido, elabora un argumento ejecutivo de una página para presentarle a la alta dirección. Estructura: (1) la decisión en una línea, (2) por qué debe tomarse ahora y no después, (3) los dos riesgos principales que se asumen conscientemente al decidir, (4) el primer paso concreto de implementación y quién lo lidera, (5) cómo sabremos en 90 días si vamos bien. Tono directo, sin tecnicismos, orientado a decisión.</div>
+          </div>
+
+          <div class="paso-item">
+            <div class="paso-instruccion"><span class="paso-num paso-num-iter">2</span>Afinen el tono con few-shot — peguen un párrafo corto con el nivel de directez que buscan y corran este prompt en las dos herramientas:</div>
+            <div class="paso-prompt">Reescribe el argumento con este nivel de directez: [peguen aquí el párrafo de ejemplo]. Mismo contenido, mismo estilo.</div>
+          </div>
+
+          <div class="paso-item">
+            <div class="paso-instruccion"><span class="paso-num paso-num-iter">3</span>Prueba de resistencia — corran este prompt y ajusten el argumento para anticipar las objeciones:</div>
+            <div class="paso-prompt">Eres un miembro de la junta directiva con dudas sobre esta propuesta. ¿Cuáles son las tres objeciones más difíciles de responder — las que pondrían en jaque el argumento entero?</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PRESENTACIÓN -->
+      <div class="presentacion-box">
+        <strong>⏱ Prepárense para presentar en 10 minutos exactos</strong>
+        <ul>
+          <li><strong>1 min —</strong> ¿Qué escenario eligieron?</li>
+          <li><strong>3 min —</strong> ¿Cuál fue el hallazgo más valioso del análisis?</li>
+          <li><strong>3 min —</strong> ¿Qué riesgo de gobierno apareció que no estaba en el radar inicial del grupo?</li>
+          <li><strong>3 mis —</strong> ¿El argumento ejecutivo que construyeron resistiría una junta directiva exigente?</li>
+        </ul>
+      </div>
+
+      <!-- CIERRE DEL EJERCICIO -->
+      <div class="cierre-ejercicio">
+        <div class="cierre-pregunta">¿Encontraron alguna diferencia entre trabajar con una IA genérica y con IAna — en las preguntas que hizo cada una, en los ángulos que abrió, en lo que ninguna pudo hacer?</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- LIDERAZGO FINAL -->
+<div class="section">
+  <div class="section-label">Distinción de liderazgo — cierre del taller</div>
+  <div class="liderazgo-block">
+    <div class="lid-kicker">Liderazgo digital · Sesión 4 · Cierre</div>
+    <div class="lid-titulo">Gobernar la tecnología requiere saber qué preguntas hacer — y tener la estructura para que esas preguntas tengan respuesta.</div>
+    <div class="lid-texto">
+      Durante cuatro sesiones usaron IA para hacer cosas, para ver mejor y para apoyar decisiones estratégicas. En cada sesión apareció la misma pregunta de fondo: ¿quién decide, quién responde, quién puede detenerlo si algo falla?<br><br>
+      Esa pregunta requiere exactamente lo que han estado practicando: hacer las preguntas correctas antes de aprobar, tener la estructura para supervisar mientras opera, y la voluntad de actuar cuando los indicadores lo piden.<br><br>
+      Eso es gobierno de TI. Y empieza con decisiones que están al alcance de cada uno de ustedes.
+    </div>
+    <div class="lid-pregunta">¿Cuál es la primera pregunta de gobierno que van a hacer en su entidad cuando regresen — y a quién se la van a hacer?</div>
+  </div>
+</div>
+
+<div class="cierre-final">
+  <div class="cierre-final-titulo">IAna los acompaña en los 90 días.</div>
+  <div class="cierre-final-sub">Guarden el enlace — está entrenada en gobierno de TI y en lo que vivieron en este taller. Pueden consultarle sobre sus planes, sobre COBIT, sobre decisiones tecnológicas en su área.</div>
+  <div class="cierre-final-nota">Gracias por cuatro sesiones de trabajo genuino · Taller de Gobierno de TI, Liderazgo Digital e IA</div>
+</div>
+
+</div>
+</body>
+</html>

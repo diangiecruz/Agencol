@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi plan de 90 días — Taller de Gobierno de TI</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#B8860B;--gold-bg:#FBF5E6;--gold-border:#E8C97A;
+  --navy:#1C3557;--teal:#0B7A5F;--teal-light:#E8F5F1;
+  --text:#1a1a1a;--muted:#6B7280;--border:#E2E0D8;--bg:#F7F6F2;--white:#FFFFFF;
+  --iana-purple:#5B21B6;--iana-bg:#F5F3FF;--iana-border:#DDD6FE;
+  --est:#7C3AED;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.page{max-width:720px;margin:0 auto;padding:0 16px 80px}
+
+.clasificacion{background:var(--gold);color:white;text-align:center;padding:8px 16px;font-size:10px;letter-spacing:3px;font-weight:600;text-transform:uppercase;margin:0 -16px 0}
+
+.cover{background:linear-gradient(135deg,#78350F 0%,var(--gold) 100%);padding:36px 28px 32px;margin:0 -16px 32px;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border:40px solid rgba(255,255,255,0.05);border-radius:50%}
+.cover::after{content:'';position:absolute;bottom:-60px;left:-20px;width:160px;height:160px;border:30px solid rgba(255,255,255,0.04);border-radius:50%}
+.cover-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.55);font-weight:600;margin-bottom:10px}
+.cover-title{font-family:'Lora',serif;font-size:26px;font-weight:600;color:white;line-height:1.25;margin-bottom:6px}
+.cover-sub{font-size:13px;color:rgba(255,255,255,0.65);font-weight:300}
+
+.section{margin-bottom:32px}
+.section-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.intro-card{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:18px 20px;font-size:14px;color:var(--text);line-height:1.75;margin-bottom:20px}
+
+.plan-card{background:var(--white);border:2px solid var(--gold);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.plan-head{background:var(--gold);padding:14px 20px}
+.plan-kicker{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:4px}
+.plan-titulo{font-family:'Lora',serif;font-size:16px;color:white}
+.plan-body{padding:18px 20px}
+
+.plan-iana{background:var(--iana-bg);border:1px solid var(--iana-border);border-radius:8px;padding:14px 16px;margin-bottom:18px}
+.plan-iana-label{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--iana-purple);margin-bottom:8px}
+.plan-iana-avatar{width:20px;height:20px;background:var(--iana-purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;flex-shrink:0}
+.plan-iana-prompt{background:white;border:1px solid var(--iana-border);border-radius:6px;padding:10px 12px;font-family:'Courier New',monospace;font-size:12px;color:#4C1D95;line-height:1.7}
+
+.plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.plan-grid{grid-template-columns:1fr}}
+.plan-cuadrante{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+.plan-cuadrante-titulo{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:10px}
+.plan-lineas{border:1px dashed var(--border);border-radius:6px;padding:14px;min-height:90px;font-size:11px;color:#D1D5DB;font-style:italic;line-height:1.5}
+
+.cierre-final{background:var(--navy);border-radius:10px;padding:28px 24px;margin-top:28px;text-align:center}
+.cierre-final-titulo{font-family:'Lora',serif;font-size:20px;color:white;margin-bottom:8px}
+.cierre-final-sub{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:12px}
+.cierre-final-nota{font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.5px}
+
+@media print{body{background:white}.plan-card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="clasificacion">Taller de Gobierno de TI · Actividad individual · Cierre</div>
+
+<div class="cover">
+  <div class="cover-tag">Sesión 4 · Cierre del taller</div>
+  <div class="cover-title">Lo que voy a hacer<br>en los próximos 90 días</div>
+  <div class="cover-sub">De lo que aprendí a lo que voy a cambiar</div>
+</div>
+
+<div class="section">
+  <div class="intro-card">
+    Cuatro sesiones construyeron criterio. Esta página lo convierte en tres acciones concretas — con fecha, con responsable y con un criterio de éxito que usted mismo define. Use IAna para estructurar el plan y luego hágalo suyo.
+  </div>
+
+  <div class="plan-card">
+    <div class="plan-head">
+      <div class="plan-kicker">Individual · Por área · Por cargo</div>
+      <div class="plan-titulo">Mi plan de 90 días</div>
+    </div>
+    <div class="plan-body">
+
+      <div class="plan-iana">
+        <div class="plan-iana-label"><div class="plan-iana-avatar">IA</div>Pídanle a IAna que les ayude a construir el plan</div>
+        <div class="plan-iana-prompt">"Soy [su cargo] en [tipo de organización]. Después de este taller identifiqué que en mi área [describa el problema o la oportunidad]. Quiero implementar una acción concreta en los próximos 90 días. ¿Qué acciones serían más realistas y de mayor impacto para alguien en mi posición? Entregame el plan en 3 fases,  de 0 a 30 días, de 30 a 60 días y de 60 a 90 días.  En cada fase responde estas preguntas: ¿Qué haré? ¿Con quién? ¿Cómo sabré que lo logré? Dime cuáles pueden ser mis mayores obstáculos en la implementación de ese plan y dame ideas para superarlo.   Hazme todas las preguntas que necesites para poder entregarme un plan que me ayude a superar el problema o aprovechar la oportunidad".</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cierre-final">
+  <div class="cierre-final-titulo">IAna los acompaña en los 90 días.</div>
+  <div class="cierre-final-sub">Guarden el enlace — está entrenada en gobierno de TI y en lo que vivieron en este taller. Pueden consultarle sobre sus planes, sobre COBIT, sobre decisiones tecnológicas en su área.</div>
+  <div class="cierre-final-nota">Taller de Gobierno de TI, Liderazgo Digital e IA</div>
+</div>
+
+</div>
+</body>
+</html>
